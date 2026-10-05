@@ -1,0 +1,31 @@
+{
+  "review_date": "2026-10-05",
+  "sources": [
+    {
+      "name": "SCL-D-26-00958.pdf",
+      "sha256": "bf887ac74a1b1e8ab45c24c7eb911eb89d6ffad21c1fa9f0e9a3478bab17e121",
+      "bytes": 1208008
+    },
+    {
+      "name": "1607.01107v1.pdf",
+      "sha256": "cc09cb345dabb06760a158e3b8a44726235e394bad455615382c60dafd33484a",
+      "bytes": 233064
+    },
+    {
+      "name": "Formal_Verification_of_Switched_Systems_via_Path-Complete_Closure_Certificates(1).pdf",
+      "sha256": "cdd584a231e4254c513b94fdbab5a86423a489268f8efae7b6b1350d4f9516df",
+      "bytes": 392765
+    },
+    {
+      "name": "IST-2017-741-v1+1_main.pdf",
+      "sha256": "798d8786efbd1726afc45611cc6ba8ec035b6e99960ef434548eb7ecc7244739",
+      "bytes": 569863
+    },
+    {
+      "name": "2503.19561v1.pdf",
+      "sha256": "1e0486e83e021476942ab1c86bba0f12baf5bace76bac037a9c36631623a2cd4",
+      "bytes": 336622
+    }
+  ],
+  "note": "Source PDFs are user-supplied inputs and are not redistributed in this package."
+}

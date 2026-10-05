@@ -1,0 +1,117 @@
+[
+  {
+    "degree": 1,
+    "status": "EXACT_ATOMIC_WITNESS_VERIFIED",
+    "atoms": {
+      "mu": [
+        [
+          "-1",
+          "13/50"
+        ],
+        [
+          "1",
+          "37/50"
+        ]
+      ],
+      "mu0": [
+        [
+          "12/25",
+          "1"
+        ]
+      ],
+      "nu": [
+        [
+          "-1641/3200",
+          "112/3289"
+        ],
+        [
+          "103/200",
+          "3177/3289"
+        ]
+      ]
+    }
+  },
+  {
+    "degree": 2,
+    "status": "EXACT_ATOMIC_WITNESS_VERIFIED",
+    "atoms": {
+      "mu": [
+        [
+          "0",
+          "369/625"
+        ],
+        [
+          "3/4",
+          "256/625"
+        ]
+      ],
+      "mu0": [
+        [
+          "-12/25",
+          "9/50"
+        ],
+        [
+          "12/25",
+          "41/50"
+        ]
+      ],
+      "nu": [
+        [
+          "-1641/3200",
+          "9/50"
+        ],
+        [
+          "1641/3200",
+          "41/50"
+        ]
+      ]
+    }
+  },
+  {
+    "degree": 3,
+    "status": "EXACT_ATOMIC_WITNESS_VERIFIED",
+    "atoms": {
+      "mu": [
+        [
+          "-3/4",
+          "128/625"
+        ],
+        [
+          "0",
+          "369/625"
+        ],
+        [
+          "3/4",
+          "128/625"
+        ]
+      ],
+      "mu0": [
+        [
+          "-12/25",
+          "1/2"
+        ],
+        [
+          "12/25",
+          "1/2"
+        ]
+      ],
+      "nu": [
+        [
+          "-1641/3200",
+          "1/2"
+        ],
+        [
+          "1641/3200",
+          "1/2"
+        ]
+      ]
+    }
+  },
+  {
+    "degree": 4,
+    "status": "NO_VERIFIED_WITNESS_ON_THIS_GRID",
+    "solver_status": 2,
+    "solver_message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is Infeasible)",
+    "interpretation": "No conclusion about certificate existence or other supports."
+  }
+]

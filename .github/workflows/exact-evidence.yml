@@ -1,0 +1,16 @@
+name: Exact certificate evidence
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Replay exact rational evidence
+        run: python src/exact_verify.py
+      - name: Reject invalid witnesses and verify positive evidence
+        run: python -m unittest discover -s tests -v
+      - name: Check deterministic committed evidence
+        run: git diff --exit-code -- evidence/exact_report.json

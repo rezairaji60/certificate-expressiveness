@@ -1,0 +1,90 @@
+{
+  "status": "EXACT_EVIDENCE_VERIFIED",
+  "arithmetic": "Python fractions.Fraction; no floating-point proof steps",
+  "parameters": {
+    "r": "1/2",
+    "c": "1/2",
+    "a": "12/25",
+    "t": "3/4",
+    "u": "1641/3200",
+    "v": "103/200",
+    "kappa": "3/10000"
+  },
+  "witness": {
+    "mu": [
+      [
+        "0",
+        "369/625"
+      ],
+      [
+        "-3/4",
+        "128/625"
+      ],
+      [
+        "3/4",
+        "128/625"
+      ]
+    ],
+    "mu0": [
+      [
+        "-12/25",
+        "1/2"
+      ],
+      [
+        "12/25",
+        "1/2"
+      ]
+    ],
+    "nu": [
+      [
+        "-1641/3200",
+        "1/2"
+      ],
+      [
+        "1641/3200",
+        "1/2"
+      ]
+    ]
+  },
+  "input_moments_0_to_3": [
+    "1",
+    "0",
+    "144/625",
+    "0"
+  ],
+  "output_moments_0_to_3": [
+    "1",
+    "0",
+    "2692881/10240000",
+    "0"
+  ],
+  "ibc_margins": {
+    "initial": "49/2500",
+    "unsafe": "132881/10240000"
+  },
+  "quartic_vbc_margins": {
+    "initial": "263/3125000",
+    "unsafe": "109119/1600000000"
+  },
+  "Q_power_coefficients": [
+    "2",
+    "15/16",
+    "-5/8",
+    "-9/16",
+    "1/4"
+  ],
+  "Q_bernstein_coefficients_on_0_1": [
+    "2",
+    "143/64",
+    "227/96",
+    "9/4",
+    "2"
+  ],
+  "claims": {
+    "implication_ibc_minimum_degree": 2,
+    "fixed_anchor_constant_comparison_vbc_minimum_degree_either_direction": 4,
+    "nonexistence_scope": "all finite m, all constant entrywise nonnegative A, degree <= 3",
+    "novelty": "requires coauthor review and additional literature checking",
+    "analytical_proofs": "paper/note.tex"
+  }
+}
