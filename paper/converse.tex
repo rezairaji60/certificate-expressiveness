@@ -1,0 +1,358 @@
+% Compile with pdfLaTeX. Candidate results for coauthor review.
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,microtype}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,urlcolor=MidnightBlue,citecolor=MidnightBlue]{hyperref}
+\newtheorem{theorem}{Candidate theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\co}{\operatorname{conv}}
+\newcommand{\cl}{\operatorname{cl}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\ball}{\mathbb B_V}
+\newcommand{\F}{\mathcal F_d}
+\newcommand{\K}{\mathcal K_\varepsilon}
+\newcommand{\dd}{\,\mathrm d}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist[enumerate]{leftmargin=*,itemsep=2pt,topsep=3pt}
+\setlist[itemize]{leftmargin=*,itemsep=2pt,topsep=3pt}
+\title{A Robust Converse at Prescribed Degree:\\Finite Polyhedral Invariants for Fixed-Anchor VBCs}
+\author{Technical Note}
+\date{October 12, 2026 --- candidate result and proof for review}
+\begin{document}
+\maketitle
+\vspace{-1em}
+\begin{abstract}
+At a fixed polynomial degree, a positive-margin safety condition for the convexified monomial transition relation implies a finite polyhedral invariant and a constant-comparison VBC. The condition includes mixing transition pairs and mixing reachable feature vectors at every step. It is equivalent to existence of a VBC with a uniform strict propagation margin, and is sufficient for the usual fixed-anchor VBC class. The proof, its limitation, a same-degree recovery example, and a component-count-independent obstruction are given below.
+\end{abstract}
+
+\section{Setting and the convexified dynamics}
+Fix an integer $d\geq1$. Assume $X\subseteq\R^n$ is nonempty and compact, $f:X\to X$ is continuous, and $X_0,X_u\subseteq X$ are nonempty, compact, and disjoint. All degree bounds below mean \emph{total degree at most $d$}, with $d$ chosen in advance. A forward fixed-anchor VBC consists of finitely many polynomial components $B=(B_1,\ldots,B_m)^\top$, a constant entrywise nonnegative $A$, and $\delta_0,\delta_u>0$ such that
+\begin{equation}\label{eq:ordinary}
+ B\leq-\delta_0\one\ \text{on }X_0,\qquad
+ B_1\geq\delta_u\ \text{on }X_u,\qquad
+ B(f(x))\leq AB(x)\quad(x\in X).
+\end{equation}
+The same designated component $B_1$ separates \emph{all} unsafe states. No restriction on $\rho(A)$ is assumed. The converse in this note concerns the forward direction.
+
+Let $\phi_d(x)\in\R^D$, $D=\binom{n+d}{d}-1$, list the nonconstant monomials of degree at most $d$. Constants are represented by affine offsets, so every admissible polynomial is $B_i(x)=\beta_i(\phi_d(x))$ for an affine $\beta_i$. Define
+\begin{align}
+ E&=\operatorname{aff}\phi_d(X),\quad V=E-E,\quad
+ Z=\co\phi_d(X),\nonumber\\
+ I_d&=\co\phi_d(X_0),\qquad J_d=\co\phi_d(X_u),\label{eq:features}\\
+ \F&=\co\{(\phi_d(x),\phi_d(f(x))):x\in X\}\subseteq E\times E.\nonumber
+\end{align}
+The convex sets $Z$, $I_d$, $J_d$, and $\F$ are compact; the affine space $E$ and direction space $V$ need not be bounded. The unit ball $\ball$ is in $V$, and interiors, distances, and norms are relative to $E$. Omitting the constant feature avoids artificial perturbations of its identically-one coordinate.
+
+A pair $(s,t)\in\F$ can be the feature averages of a distribution and its successor distribution, even when $s$ and $t$ are not individual state lifts. An affine comparison on the original graph holds on all of $\F$. Thus ordinary lifted trajectory safety does not suffice.
+
+For $\varepsilon\geq0$, put
+\begin{align}
+ \mathcal F_d^\varepsilon&=\F+(\varepsilon\ball\times\varepsilon\ball),\nonumber\\
+ T_\varepsilon(C)&=\{t:\ \exists s\in C,\ (s,t)\in\mathcal F_d^\varepsilon\},\nonumber\\
+ C_\varepsilon^0&=I_d+\varepsilon\ball,\qquad
+ C_\varepsilon^{k+1}=\co\bigl(C_\varepsilon^k\cup T_\varepsilon(C_\varepsilon^k)\bigr),\label{eq:closure}\\
+ \mathcal K_\varepsilon&=\cl\bigcup_{k\geq0}C_\varepsilon^k.\nonumber
+\end{align}
+The source and successor errors are independent feature-space errors, not a claim about physical state disturbances. There are two convexifications: the transition graph in $\F$, and the reachable set at every iteration in \eqref{eq:closure}. Each $C_\varepsilon^k$ is compact and convex; the sets increase and lie in the compact set $Z+\varepsilon\ball$. Consequently $\mathcal K_\varepsilon$ is compact and convex.
+
+Every VBC satisfying \eqref{eq:ordinary} forces
+\begin{equation}\label{eq:necessary}
+ \mathcal K_0\cap J_d=\varnothing.
+\end{equation}
+Indeed, $\{\beta\leq0\}$ contains $I_d$ and is preserved by $\F$, convex combinations, and limits, whereas $\beta_1\geq\delta_u$ on $J_d$. This is a necessary condition; no general converse to \eqref{eq:necessary} is asserted here.
+
+\section{Candidate converse and its exact scope}
+\begin{theorem}[Robust convexified safety versus strict propagation]\label{th:main}
+Under the assumptions above, the following are equivalent.
+\begin{enumerate}
+\item There is an $\varepsilon>0$ such that $\mathcal K_\varepsilon\cap J_d=\varnothing$.
+\item There are finite $m\geq1$, polynomial $B_i$ of degree at most $d$, a constant $A\geq0$, and $\delta_0,\delta_u,\eta>0$ satisfying the separation conditions in \eqref{eq:ordinary} and
+\begin{equation}\label{eq:strict}
+ B(f(x))\leq AB(x)-\eta\one\qquad(x\in X).
+\end{equation}
+\end{enumerate}
+Moreover, the robust separation condition in item 1 yields a bounded polyhedron
+\[
+ P=\{z\in E:\beta_j(z)\leq0,\ j=1,\ldots,m\}
+\]
+with $I_d$ strictly inside it, one designated supporting inequality strictly separating $J_d$, and
+\[
+ (s,t)\in\F,\ s\in P\quad\Longrightarrow\quad t+\varepsilon\ball\subseteq P.
+\]
+Thus it yields a VBC of the prescribed degree bound in the usual class \eqref{eq:ordinary}.
+\end{theorem}
+
+\textbf{Scope.} The equivalence is for the additional uniform margin \eqref{eq:strict}. For the usual VBC inequality without $\eta$, the robust separation condition is sufficient but need not be necessary; Section~\ref{sec:limitation} gives a counterexample. The proof is an existence construction over real coefficients. It does not provide a terminating synthesis algorithm or an a priori component bound.
+
+\subsection{Two finite-dimensional ingredients}
+\begin{lemma}[Finite outer approximation with a prescribed separator]\label{lem:poly}
+Let $K\subseteq E$ be a compact convex body, let $a_1\in V$ have unit norm, and let $\tau>0$. There are finitely many unit vectors $a_1,\ldots,a_m\in V$ such that, with $h_K(a)=\max_{z\in K}\langle a,z\rangle$,
+\[
+ K\subseteq P=\{z\in E:\langle a_j,z\rangle\leq h_K(a_j),\ j=1,\ldots,m\}
+ \subseteq K+\tau\ball,
+\]
+and $P$ is bounded.
+\end{lemma}
+\begin{proof}
+Choose an orthonormal basis of $V$ and its positive and negative coordinate directions. Their supporting halfspaces bound a compact box $Q$ containing $K$. Each $y\in Q$ with $\dist(y,K)\geq\tau$ is strictly excluded by a supporting halfspace: if $p$ is its closest point in $K$, take $a=(y-p)/\|y-p\|$, so $\langle a,y\rangle>h_K(a)=\langle a,p\rangle$. The corresponding open exclusion sets cover the compact set $\{y\in Q:\dist(y,K)\geq\tau\}$. A finite subcover, the box inequalities, and the prescribed direction $a_1$ give the result.
+\end{proof}
+
+\begin{lemma}[Global row multiplier from a convex relation]\label{lem:dual}
+Let $F\subseteq E\times E$ be compact and convex, let $\beta_1,\ldots,\beta_m$ be affine, and suppose some $(s_*,t_*)\in F$ has $\beta(s_*)<0$. If
+\[
+ p_i=\max\{\beta_i(t):(s,t)\in F,\ \beta(s)\leq0\},
+\]
+then there is an attained $a_i\in\R_{\geq0}^m$ such that
+\[
+ \beta_i(t)-a_i^\top\beta(s)\leq p_i\quad\text{for every }(s,t)\in F.
+\]
+\end{lemma}
+\begin{proof}
+The closed convex set
+\[
+ H_i=\{(\beta(s)+u,\ \beta_i(t)-v):(s,t)\in F,\ u\geq0,\ v\geq0\}
+\]
+contains $(0,p_i)$ on its boundary. It is closed because it is a compact affine image plus a closed cone. A nonzero supporting normal $(w,\gamma)$ can be oriented so that
+\[
+ w^\top y+\gamma q\leq\gamma p_i\quad((y,q)\in H_i).
+\]
+Then $w\leq0$ and $\gamma\geq0$, since $u$ and $v$ can increase without bound. If $\gamma=0$, strict feasibility gives $w^\top\beta(s_*)>0$ for nonzero $w\leq0$, contradicting the displayed inequality. Hence $\gamma>0$; dividing by $\gamma$ and taking $a_i=-w/\gamma$ proves the claim. This is the usual affine-constraint convex duality argument.
+\end{proof}
+
+\subsection{Proof attempt for Theorem~\ref{th:main}}
+\begin{proof}
+\emph{(1)$\Rightarrow$(2): from the closure to finitely many facets.}
+Write $K=\mathcal K_\varepsilon$. It has nonempty relative interior because it contains $I_d+\varepsilon\ball$. Compact convex separation of $K$ and $J_d$ provides a unit $a_1\in V$ and
+\begin{equation}\label{eq:anchor}
+ \gamma=\min_{z\in J_d}\langle a_1,z\rangle-h_K(a_1)>0.
+\end{equation}
+Apply Lemma~\ref{lem:poly} with $\tau=\varepsilon/2$, and define
+\[
+ \beta_j(z)=\langle a_j,z\rangle-h_K(a_j),\qquad
+ B_j(x)=\beta_j(\phi_d(x)).
+\]
+Each polynomial has degree at most $d$. Since $I_d+\varepsilon\ball\subseteq K$ and every $a_j$ is a unit vector,
+\[
+ \beta_j(s)\leq-\varepsilon\quad(s\in I_d),\qquad
+ \beta_1(z)\geq\gamma\quad(z\in J_d).
+\]
+
+The key transition fact is
+\begin{equation}\label{eq:key}
+ (s,t)\in\F,\ \dist(s,K)\leq\varepsilon/2
+ \quad\Longrightarrow\quad t+\varepsilon\ball\subseteq K.
+\end{equation}
+To prove it, choose $p\in K$ closest to $s$, and $p_\ell\in\bigcup_k C_\varepsilon^k$ tending to $p$. For large $\ell$, $\|p_\ell-s\|<\varepsilon$. For every $w\in\varepsilon\ball$, the pair $(p_\ell,t+w)$ belongs to $\mathcal F_d^\varepsilon$. If $p_\ell\in C_\varepsilon^{k_\ell}$, then $t+w\in C_\varepsilon^{k_\ell+1}\subseteq K$. This proves \eqref{eq:key}. In particular, the proof does not assume that passing to the closure automatically preserves every boundary source fiber of the perturbed relation.
+
+For $(s,t)\in\F$ with $s\in P$, the outer approximation gives $\dist(s,K)\leq\varepsilon/2$. By \eqref{eq:key}, $t+\varepsilon\ball\subseteq K$, hence
+\[
+ \beta_i(t)\leq-\varepsilon\quad(i=1,\ldots,m).
+\]
+There is a strictly feasible source in $\F$, obtained from any $x_0\in X_0$. Lemma~\ref{lem:dual}, applied row by row, therefore supplies $A_i\geq0$ with
+\[
+ \beta_i(t)-A_i\beta(s)\leq-\varepsilon\quad((s,t)\in\F).
+\]
+Stacking the rows and restricting to the original graph yields \eqref{eq:strict} with $\eta=\delta_0=\varepsilon$ and $\delta_u=\gamma$. The same argument gives the stated relational invariance of $P$.
+
+\emph{(2)$\Rightarrow$(1): strict propagation tolerates feature errors.}
+Write the linear part of $\beta_i$ on $V$ as $a_i$, let $L_i=\|a_i\|$, and set
+\[
+ L=\max_i L_i>0,\qquad
+ M=\max_i\left(L_i+\sum_j A_{ij}L_j\right)>0.
+\]
+The positivity follows from the separating anchor. Choose
+\[
+ 0<\varepsilon<\min\{\delta_0/(2L),\ \eta/(2M)\}.
+\]
+Affine linearity extends \eqref{eq:strict} from the graph to $\F$. For $(s,t)\in\F$ and $e,w\in\varepsilon\ball$,
+\begin{align*}
+ \beta_i(t+w)
+ &\leq (A\beta(s+e))_i-\eta
+       +\varepsilon\left(L_i+\sum_j A_{ij}L_j\right)\\
+ &\leq (A\beta(s+e))_i-\eta/2.
+\end{align*}
+Also $\beta\leq-\delta_0\one/2$ on $C_\varepsilon^0$. Nonnegativity of $A$ and the displayed perturbed comparison imply inductively $\beta\leq0$ on every $C_\varepsilon^k$; affine inequalities persist under convex combinations and limits. Thus $\beta\leq0$ on $\mathcal K_\varepsilon$, whereas $\beta_1\geq\delta_u$ on $J_d$. The sets are disjoint.
+\end{proof}
+
+\begin{remark}[Rational approximation]
+Strict margins on compact $X$ also imply existence of a VBC with rational polynomial coefficients and a rational matrix $A\geq0$, at the same degree and component count. Indeed, the separation values and the residual $AB-B\circ f$ depend continuously on these finitely many coefficients, uniformly on $X$, since $f(X)\subseteq X$. Sufficiently close rational approximations, keeping $A\geq0$ and errors below half the respective positive margins, preserve all inequalities. This is an existence guarantee, not a computable rounding procedure for unspecified compact data.
+\end{remark}
+
+\begin{corollary}[A sufficient condition that can be checked on a chosen body]\label{cor:body}
+It suffices to exhibit a compact convex $C\subseteq E$ and $\varepsilon>0$ satisfying
+\[
+ I_d+\varepsilon\ball\subseteq C,\qquad
+ T_\varepsilon(C)\subseteq C,\qquad C\cap J_d=\varnothing.
+\]
+Then $\mathcal K_\varepsilon\subseteq C$, and Theorem~\ref{th:main} constructs a finite degree-$d$ fixed-anchor VBC.
+\end{corollary}
+This is a robust convex-body assumption, not an assumption that a finite polyhedral invariant already exists. The theorem uses supporting halfspaces to obtain finitely many functions and the global comparison matrix.
+
+\section{Comparison with Horv\'ath--Song--Terlaky, Theorem 3.10}
+For a prescribed set $S=\{x:g(x)\leq0\}$, Theorem 3.10 of \cite{hst} assumes convex $g$, concave $g\circ f_d$, and a strict feasible point. It characterizes invariance by existence of $\alpha\geq0$ with
+\begin{equation}\label{eq:hst}
+ g(f_d(x))\leq\alpha g(x)\qquad(x\in\R^n).
+\end{equation}
+Its quadratic case dispenses with the concavity assumption when both functions are quadratic. The proof uses the convex Farkas lemma, or the S-lemma in that quadratic case; Remark 3.11 discusses multiple constraints.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.21\linewidth}p{0.35\linewidth}p{0.37\linewidth}@{}}
+\toprule
+Issue & HST Theorem 3.10 & Candidate Theorem~\ref{th:main}\\
+\midrule
+Object & Given convex sublevel set in state space & Constructed finite polyhedron in monomial space\\
+Transition model & Deterministic $f_d$ & Convex relation $\mathcal F_d$, including mixtures\\
+Regularity used & Convexity/concavity, strict feasibility & Compactness, continuity, robust convexified separation\\
+Comparison & Global scalar multiplier & Constant nonnegative matrix, global on $X$\\
+Safety restriction & Invariance of the given set & Prescribed degree and one fixed unsafe anchor\\
+\bottomrule
+\end{tabular}
+\end{center}
+The multiplier step in Lemma~\ref{lem:dual} is classical convex separation, closely related to the mechanism in \eqref{eq:hst}; it is not claimed as new. The candidate contribution is the passage from robust convexified safety to a finite collection of feature-space facets, including a single unsafe separator. In general $\phi_d(f(x))$ does not induce a single-valued map on all of $Z$, so applying a deterministic invariance theorem to individual monomial trajectories would miss admissible mixtures.
+
+\textbf{Broader context.} Robust converse barrier results already exist for discrete-time systems; see Liu~\cite{liu}, Section IV and Theorem 30. Geometric constructions of polyhedral invariants from contractive ellipsoids also precede this note~\cite{alessio}. Here the proposed characterization fixes the polynomial degree and concerns a convexified, potentially set-valued monomial relation with a fixed unsafe anchor. Whether this combination yields a substantively new theorem requires a fuller comparison of assumptions and conclusions with that literature.
+
+\section{Why the extra robustness is substantive}\label{sec:limitation}
+Let $X=[-1,1]$, $f(x)=x$, $X_0=[-1/2,0]$, $X_u=[1/2,1]$, and $d=1$. The scalar polynomial
+\[
+ B(x)=x-\tfrac14,\qquad A=[1]
+\]
+satisfies \eqref{eq:ordinary}, with both separation margins $1/4$. But for every $\varepsilon>0$, $\mathcal F_1^\varepsilon$ permits $(s,s+h)$ whenever $s\in X$ and $0\leq h\leq\varepsilon$. Starting at $0$, finitely many such transitions reach $1/2$, staying in $X$. Therefore $\mathcal K_\varepsilon\cap J_1\neq\varnothing$ for every $\varepsilon>0$.
+
+Thus an ordinary VBC can exist even when the robust hypothesis fails. Removing robustness from the converse requires a different argument; one must not infer the existence of a finite invariant polyhedron merely by approximating a possibly boundary-invariant convex set.
+
+\section{Adding functions at the same degree succeeds}
+Consider a contracting quarter-turn:
+\[
+ X=\{x\in\R^2:\|x\|_2\leq1\},\quad
+ f(x)=qRx,\quad q=\tfrac9{10},\quad
+ R=\begin{pmatrix}0&-1\\1&0\end{pmatrix},
+\]
+\[
+ X_0=\{x:\|x\|_2\leq\tfrac14\},\qquad
+ X_u=\{(\tfrac34,0)\},\qquad d=1.
+\]
+The system maps $X$ into itself, and initial trajectories contract.
+
+\textbf{One affine function is impossible.}
+Suppose $B(x)=a^\top x-c$ is a scalar VBC with multiplier $\lambda\geq0$. Strict initial separation at $0$ gives $c>0$, while the unsafe anchor gives
+\[
+ c<\tfrac34a_1\leq\tfrac34\|a\|_2<q\|a\|_2,\qquad a\neq0.
+\]
+At $x_*=R^\top a/\|a\|_2\in X$, skew symmetry gives $a^\top x_*=0$. Consequently
+\[
+ B(x_*)=-c<0,\qquad B(f(x_*))=q\|a\|_2-c>0,
+\]
+contradicting $B(f(x_*))\leq\lambda B(x_*)$.
+
+\textbf{Four affine functions succeed.}
+Take $r=1/2$ and
+\[
+ B(x)=
+ \begin{pmatrix}x_1-r\\x_2-r\\-x_1-r\\-x_2-r\end{pmatrix},\qquad
+ A=q\begin{pmatrix}0&0&0&1\\1&0&0&0\\0&1&0&0\\0&0&1&0\end{pmatrix}.
+\]
+Direct substitution gives the global identity
+\[
+ B(f(x))=AB(x)-\tfrac1{20}\one.
+\]
+All components are at most $-1/4$ on $X_0$, and $B_1(3/4,0)=1/4$. The associated invariant is the square $[-1/2,1/2]^2$. This proves a one-versus-four recovery at the same degree, without claiming that four is the minimum possible number.
+
+The robust hypothesis also has a direct check. Since $\phi_1(x)=x$ and $f$ is linear, $\mathcal F_1$ is its graph over the unit disk. Set $C=[-r,r]^2$ and $\varepsilon=1/100$. Then $I_1+\varepsilon\ball\subseteq C$. For a perturbed source $y=s+e\in C$ and successor $qRs+w$, with $\|e\|_2,\|w\|_2\leq\varepsilon$,
+\[
+ \|qRs+w\|_\infty
+ \leq qr+(q+1)\varepsilon
+ =\tfrac{469}{1000}<\tfrac12.
+\]
+Thus $T_\varepsilon(C)\subseteq C$, and $C$ excludes $J_1$. Corollary~\ref{cor:body} applies. This calculation includes every convexified transition pair and every subsequent convex combination.
+
+\section{An obstruction: adding same-degree functions cannot succeed}
+Reuse the nonlinear example from the earlier note:
+\begin{align*}
+ f(x)&=\tfrac78x+\tfrac58x^3-\tfrac12x^5,\qquad X=[-1,1],\\
+ a&=\tfrac{12}{25},\quad u=\tfrac{1641}{3200},\quad v=\tfrac{103}{200},\\
+ X_0&=[-a,a],\qquad X_u=[-v,-u]\cup[u,v].
+\end{align*}
+Writing $z=x^2$ gives
+\[
+ f'(x)=\tfrac14+(1-z)(\tfrac58+\tfrac52z)\geq\tfrac14\quad(x\in X);
+\]
+together with $f(\pm1)=\pm1$, this verifies $f(X)\subseteq X$.
+There is no true unsafe trajectory from $X_0$: the single quadratic
+\[
+ b(x)=x^2-\tfrac14
+\]
+is an \emph{interpolation-inspired barrier certificate (IBC)} with one frame. If $b(x)\leq0$, then $f(x)=xh(x^2)$, where
+$h(z)=1+\tfrac12(z-\tfrac14)(1-z)$ lies in $[7/8,1]$ for $0\leq z\leq1/4$. Hence $|f(x)|\leq|x|\leq1/2$. The initial and unsafe margins are positive because $a<1/2<u$.
+
+Nevertheless, at degree two put
+\[
+ \mu=\tfrac{369}{625}\delta_0+
+     \tfrac{128}{625}(\delta_{-3/4}+\delta_{3/4}),\qquad
+ \mu_0=\tfrac12(\delta_{-a}+\delta_a),\qquad
+ \nu=\tfrac12(\delta_{-u}+\delta_u).
+\]
+All are probability measures with support in their designated sets. Since
+$f(3/4)=1641/2048$ and $u=a f(3/4)/(3/4)$,
+\begin{equation}\label{eq:witness}
+ \int\phi_2\dd\mu=\int\phi_2\dd\mu_0=(0,a^2),\qquad
+ \int\phi_2\circ f\dd\mu=\int\phi_2\dd\nu=(0,u^2).
+\end{equation}
+Thus $\bigl((0,a^2),(0,u^2)\bigr)\in\mathcal F_2$ has source in $I_2$ and successor in $J_2$. Already $C_0^1$ meets $J_2$, and so does $\mathcal K_\varepsilon$ for every $\varepsilon\geq0$.
+
+\begin{proposition}[No finite same-degree repair]\label{prop:obstruction}
+For this example no forward fixed-anchor VBC of degree at most two exists, with any finite component count and any constant $A\geq0$. The conclusion also holds through degree three.
+\end{proposition}
+\begin{proof}
+For any degree-at-most-two vector $B$, \eqref{eq:witness} and the unit masses imply
+\[
+ \int B\circ f\dd\mu=\int B\dd\nu
+ \leq A\int B\dd\mu
+ =A\int B\dd\mu_0\leq0.
+\]
+The designated unsafe component has integral at least $\delta_u>0$, a contradiction. All odd moments through degree three vanish by symmetry, so the same identities and argument apply to cubic components.
+\end{proof}
+The source atoms at $\pm3/4$ lie outside $X_0$. Their mixtures imitate initial features while the successor mixtures imitate unsafe features. This is precisely the information that ordinary trajectory safety omits. The fixed-anchor restriction is essential: positivity of some component at each unsafe point does not in general imply positivity of one component averaged over $\nu$.
+
+\section{What this note establishes and what remains open}
+The note provides a proof of the candidate converse under its stated positive-margin condition, subject to your review. It constructs finitely many degree-bounded functions from robust safety of the convexified relation; the two analytical examples show that additional functions can repair a facet deficit but cannot repair a moment obstruction.
+
+The unresolved step for the broader program is a converse for \eqref{eq:ordinary} without strict propagation. The identity example prevents replacing that question by the robust hypothesis without qualification. Also unresolved are a finite computational certificate for the closure assumption, quantitative facet bounds under additional geometry, and the full comparison with existing converse and invariant-approximation results. No new synthesis experiments are needed to evaluate the candidate proof.
+
+\textbf{Code and reproducibility.} The computational materials for this note are available in the Certificate Expressiveness repository:
+\url{https://github.com/rezairaji60/certificate-expressiveness}.
+The repository includes \texttt{paper/converse.tex}, \texttt{src/exact\_verify\_converse.py}, and \texttt{evidence/converse\_report.json}. The exact rational replay checks the affine comparison identity, the robustness bound, and the finite moment identities; it is not a machine verification of the general converse. The earlier degree-separation scripts and evidence are included in the same repository.
+
+\begin{thebibliography}{3}
+\small\raggedright
+\bibitem{hst}
+Z. Horv\'ath, Y. Song, and T. Terlaky,
+\emph{Invariance Conditions for Nonlinear Dynamical Systems},
+arXiv:1607.01107v1, 2016.
+Theorem 3.10, equation (11), and Remark 3.11.
+\par\url{https://arxiv.org/abs/1607.01107}.
+\bibitem{liu}
+J. Liu,
+\emph{Converse Barrier Functions via Lyapunov Functions},
+IEEE Transactions on Automatic Control, vol. 67, no. 1, pp. 497--503, 2022.
+DOI: 10.1109/TAC.2021.3085419.
+\par\url{https://arxiv.org/abs/2007.11086}.
+\bibitem{alessio}
+A. Alessio, M. Lazar, A. Bemporad, and W. P. M. H. Heemels,
+\emph{Squaring the circle: An algorithm for generating polyhedral invariant sets from ellipsoidal ones},
+Automatica, vol. 43, no. 12, pp. 2096--2103, 2007.
+DOI: 10.1016/j.automatica.2007.04.028.
+\end{thebibliography}
+\end{document}

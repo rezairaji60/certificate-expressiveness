@@ -23,3 +23,7 @@ A moment witness involving input and successor distributions is not itself a clo
 Keep barrier characterizations and exact degree separations as the main mathematical contribution. Include a closure-certificate extension only after it provides a proved, substantive addition and is agreed with Majid. His email presents switched-system extensions as a later possibility as well; they are not part of the initial autonomous scope.
 
 The project name **Certificate Expressiveness** accommodates those later extensions without committing the current paper to them. The working paper title remains **Structural Conservatism of Discrete-Time Barrier Certificates: Characterization and Degree Separations**.
+
+## Converse stage
+
+The October 12 candidate converse addresses Majid's subsequent request for a finite polyhedral invariant in a prescribed monomial representation. It uses compactness, continuity, and a positive robust separation margin for the convexified transition relation and convexified reachable feature sets. Equivalence is established only for fixed-anchor VBCs with an additional uniform strict propagation margin; the same assumption is sufficient, but not necessary, for the ordinary VBC class. The identity-map counterexample makes that distinction explicit. See [CONVERSE_SCOPE.md](CONVERSE_SCOPE.md) and [the reviewed note](../paper/converse.pdf).

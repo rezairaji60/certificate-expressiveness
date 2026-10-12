@@ -1,0 +1,96 @@
+{
+  "status": "EXACT_FINITE_EVIDENCE_VERIFIED",
+  "arithmetic": "fractions.Fraction; no floating point",
+  "rotation": {
+    "degree_bound": 1,
+    "components": 4,
+    "A": [
+      [
+        "0",
+        "0",
+        "0",
+        "9/10"
+      ],
+      [
+        "9/10",
+        "0",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "9/10",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "9/10",
+        "0"
+      ]
+    ],
+    "initial_margin": "1/4",
+    "unsafe_anchor_margin": "1/4",
+    "global_propagation_margin": "1/20",
+    "feature_error_radius": "1/100",
+    "robust_successor_infinity_norm_bound": "469/1000",
+    "verification": "all affine coefficients and constant offsets match"
+  },
+  "moment_obstruction": {
+    "excluded_degree_bounds": [
+      2,
+      3
+    ],
+    "input_moments_0_through_3": [
+      "1",
+      "0",
+      "144/625",
+      "0"
+    ],
+    "successor_moments_0_through_3": [
+      "1",
+      "0",
+      "2692881/10240000",
+      "0"
+    ],
+    "quadratic_ibc_initial_margin": "49/2500",
+    "quadratic_ibc_unsafe_margin": "132881/10240000",
+    "mu": [
+      [
+        "0",
+        "369/625"
+      ],
+      [
+        "-3/4",
+        "128/625"
+      ],
+      [
+        "3/4",
+        "128/625"
+      ]
+    ],
+    "mu0": [
+      [
+        "-12/25",
+        "1/2"
+      ],
+      [
+        "12/25",
+        "1/2"
+      ]
+    ],
+    "nu": [
+      [
+        "-1641/3200",
+        "1/2"
+      ],
+      [
+        "1641/3200",
+        "1/2"
+      ]
+    ],
+    "scope": "all finite forward fixed-anchor component counts and A >= 0"
+  },
+  "limit": "General converse and universal impossibility rely on the note's proofs."
+}

@@ -10,7 +10,9 @@ jobs:
           python-version: '3.12'
       - name: Replay exact rational evidence
         run: python src/exact_verify.py
+      - name: Replay exact converse evidence
+        run: python src/exact_verify_converse.py
       - name: Reject invalid witnesses and verify positive evidence
         run: python -m unittest discover -s tests -v
       - name: Check deterministic committed evidence
-        run: git diff --exit-code -- evidence/exact_report.json
+        run: git diff --exit-code -- evidence/exact_report.json evidence/converse_report.json
