@@ -3,11 +3,13 @@
 Default replay uses only Python's standard library and exact rational arithmetic.
 --discover optionally uses SciPy to propose A; every accepted proposal is then
 checked with Fraction arithmetic, including the feature-cover error budget.
-The continuum conclusion also uses the analytic covering/derivative arguments
-in paper/converse.tex; this is not formal verification of the general theorem.
+The example has a Lipschitz-certified paired-cover argument and an independent
+exact Bernstein polynomial certificate. These finite checks do not formally
+verify the general theorems in paper/converse.tex.
 """
 from fractions import Fraction as Q
 from itertools import combinations, product
+from math import comb
 from pathlib import Path
 import argparse
 import json
@@ -88,6 +90,66 @@ def validate_matrix(matrix, xi_s=XI_S, xi_t=XI_T, eta=ETA):
             "certified_spectral_radius_upper_bound": str(spectral_bound)}
 
 
+
+def verify_global_polynomials(matrix, eta=ETA):
+    """Independent continuum proof in a degree-four Bernstein basis.
+
+    Each row expands (AB)_i-B_i(f(x)) directly; no cover nodes, Lipschitz
+    constants, or floating-point operations enter this check.
+    Bernstein basis weights are nonnegative and sum to one on [-1,1].
+    """
+    require(eta > 0, "Propagation margin must be positive")
+    require(len(matrix) == len(NORMALS)
+            and all(len(row) == len(NORMALS) for row in matrix),
+            "Wrong matrix dimension")
+    require(all(a >= 0 for row in matrix for a in row),
+            "Matrix must be nonnegative")
+    all_bernstein = []
+    endpoints = []
+    for i, row in enumerate(matrix):
+        u, v = NORMALS[i]
+        # f=x/2+x^2/4 and f^2=x^2/4+x^3/4+x^4/16.
+        coefficients = [
+            R*(1-sum(row, Q(0))),
+            sum((a*n[0] for a, n in zip(row, NORMALS)), Q(0))-u/2,
+            sum((a*n[1] for a, n in zip(row, NORMALS)), Q(0))-u/4-v/4,
+            -v/4, -v/16,
+        ]
+        # Substitute x=2t-1, then convert the power basis to degree-4
+        # Bernstein coefficients on 0<=t<=1.
+        transformed = [
+            2**j*sum((coefficients[k]*comb(k,j)*(-1)**(k-j)
+                      for k in range(j,5)), Q(0))
+            for j in range(5)
+        ]
+        bernstein_values = [
+            sum((transformed[j]*Q(comb(k,j),comb(4,j))
+                 for j in range(k+1)), Q(0))
+            for k in range(5)
+        ]
+        require(min(bernstein_values) >= eta,
+                "Global polynomial propagation certificate failed")
+        all_bernstein.append(bernstein_values)
+        for x in (Q(-1), Q(1)):
+            value = sum((a*x**k for k,a in enumerate(coefficients)), Q(0))
+            endpoints.append((value, i+1, x))
+    lower = min(min(row) for row in all_bernstein)
+    attained, component, state = min(endpoints)
+    return {
+        "basis": "degree-four Bernstein on [-1,1]",
+        "componentwise_coefficients": [[str(v) for v in row]
+                                      for row in all_bernstein],
+        "requested_propagation_margin": str(eta),
+        "certified_uniform_propagation_margin": str(lower),
+        "minimum_bernstein_slack_at_requested_margin": str(lower-eta),
+        "smallest_endpoint_residual": str(attained),
+        "sharp_for_fixed_certificate": lower == attained,
+        "endpoint_witness": {"component_one_based": component,
+                             "state": str(state), "residual": str(attained)},
+        "scope": "This is a second, cover-independent continuum proof for the committed B and A, not an optimal margin over all certificates.",
+    }
+
+
 def verify_geometry():
     require(all(dot(a, a) == 1 for a in NORMALS), "Normals must be unit")
     vertices = poly_vertices()
@@ -121,6 +183,17 @@ def verify_geometry():
     scale = 32*R/EPS
     generic_bound = 1+(1+scale)**2-(scale-1)**2
     require(generic_bound == 1537, "Generic component bound failed")
+    # Projection construction: delta_s^2=R*EPS/4, alpha<=EPS/16.
+    projection_spacing_sq = R*EPS/4
+    projection_support_error = EPS/16
+    projection_error_bound = projection_spacing_sq/(2*R)+6*projection_support_error
+    require(projection_spacing_sq <= R*R/4
+            and projection_error_bound == EPS/2,
+            "Projection approximation error budget failed")
+    # For r=2 the packing expression is 32*sqrt(R/EPS);
+    # certify its ceiling as 111 without floating-point square roots.
+    require(Q(110)**2 < 1024*R/EPS < Q(111)**2,
+            "Projection component ceiling failed")
     return {
         "convexified_relation_contraction_bound": str(q),
         "initial_feature_norm_bound": str(initial_norm_bound),
@@ -129,6 +202,9 @@ def verify_geometry():
         "robust_successor_norm_bound": str(robust_successor_bound),
         "robust_inclusion_gap": str(R-robust_successor_bound),
         "generic_component_upper_bound": int(generic_bound),
+        "projection_component_upper_bound": 112,
+        "projection_support_error_cap": str(projection_support_error),
+        "projection_outer_error_bound": str(projection_error_bound),
         "used_components": len(NORMALS),
         "polygon_vertex_count": len(vertices),
         "maximum_polygon_vertex_squared_norm": str(max_norm_sq),
@@ -175,6 +251,7 @@ def verify_scope_examples():
 def replay(matrix):
     geometry = verify_geometry()
     lp = validate_matrix(matrix)
+    global_polynomial = verify_global_polynomials(matrix)
     return {
         "status": "EXACT_CONSTRUCTIVE_EVIDENCE_VERIFIED",
         "arithmetic": "fractions.Fraction; no floating point in replay",
@@ -182,11 +259,12 @@ def replay(matrix):
                     "Xu": ["7/10", "4/5"], "map": "x/2 + x^2/4",
                     "features": ["x", "x^2"], "degree_bound": 2},
         "geometry": geometry, "finite_lp": lp,
+        "independent_global_polynomial_certificate": global_polynomial,
         "certificate_margins": {"initial_lower_bound": "23/80",
                                 "unsafe_anchor_lower_bound": "1/10",
                                 "global_propagation_lower_bound": str(ETA)},
         "scope_examples": verify_scope_examples(),
-        "limit": "Continuum soundness uses the proved Lipschitz cover and affine extension to convex mixtures. General theorems are not machine-checked.",
+        "limit": "The example has both a proved Lipschitz paired-cover argument and an independent exact Bernstein polynomial certificate. Affinity extends the graph inequalities to convex mixtures. General theorems are not machine-checked.",
     }
 
 

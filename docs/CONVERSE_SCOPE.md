@@ -59,6 +59,16 @@ where r is the affine feature dimension and the body lies within radius R.
 Support overestimation alpha <= min(epsilon/8, gamma/2) preserves the
 unsafe margin and keeps the polyhedron in a source-error tube.
 
+Section 4.1 adds a sharper projection construction. For exact Euclidean projections and support errors alpha <= min(epsilon/16,
+gamma/2), it yields
+
+m <= 1 + ceil[(1+8 sqrt(R/epsilon))^r - (8 sqrt(R/epsilon)-1)^r],
+
+of order O_r((R/epsilon)^((r-1)/2)). This is an application of classical Dudley
+geometry, with an explicit error proof; it is not a new approximation exponent.
+The worked example's a priori bound improves from 1,537 to 112 with certified projection data. Feasible inexact projection points also suffice
+when their supporting-normal gap sigma satisfies sigma+alpha<=epsilon/16. The twelve-component construction is unchanged.
+
 A finite LP then extracts the nonnegative comparison rows. A certified paired
 cover of exact graph nodes has errors xi_s and xi_t; the row-sum cap Lambda
 charges xi_t + Lambda*xi_s against the propagation margin.
@@ -85,6 +95,13 @@ minimum slack 1/400 at target propagation margin 1/100.
 The initial margin is at least 23/80, unsafe-anchor margin at least 1/10,
 and maximum row sum is 58/125 < 1. No minimal degree or component count is claimed.
 
+The replay additionally converts every global residual (AB)_i-B_i(f) into the
+degree-four Bernstein basis on [-1,1], using exact rational arithmetic and no
+cover nodes or Lipschitz bounds. The minimum of all 60 coefficients is 73/2500.
+The first component at x=1 attains this value, proving the exact largest uniform
+propagation margin for this fixed B,A. This second proof is independent of the
+finite cover. The LP target remains 1/100 after accounting for cover errors.
+
 From the repository root:
 
 ```sh
@@ -95,9 +112,11 @@ python -m unittest discover -s tests -v
 ```
 
 All replays use only the standard library. Do not run the older assertion-based
-scripts with -O. There are 11 tests, including rejection of an erased anchor row,
+scripts with -O. There are 13 tests, including rejection of an erased anchor row,
 negative matrix entries, and understated source or successor cover errors.
 The new replay uses explicit exceptions and does not depend on assertions.
+Tests also verify the sharp Bernstein margin and reject a margin just above
+the exact endpoint value.
 
 Optional discovery:
 
@@ -114,7 +133,9 @@ verification. Solver status is not proof. Committed reports are deterministic.
 The revision explicitly compares HST Theorem 3.10 / Remark 3.11,
 Liu Section IV / Theorem 30, Alessio et al. Theorem 4 and its subsequent
 ellipsoidal construction, and Berger–Sankaranarayanan's finite LP synthesis
-of polyhedral Lyapunov functions. Multiplier arguments, approximation within
+of polyhedral Lyapunov functions. The sharper projection count explicitly cites
+Har-Peled–Jones, arXiv:1912.01977v3, for the classical Dudley mechanism.
+Multiplier arguments, approximation within
 a dynamical margin, and finite LP synthesis are established mechanisms.
 
 Novelty of the combined fixed-feature equivalence and certified extraction

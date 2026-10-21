@@ -5,7 +5,7 @@
 \usepackage{lmodern}
 \usepackage[margin=0.8in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,booktabs,array,microtype}
-\usepackage{enumitem}
+\usepackage{enumitem,needspace}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks=true,linkcolor=MidnightBlue,urlcolor=MidnightBlue,citecolor=MidnightBlue]{hyperref}
 \newtheorem{theorem}{Theorem}
@@ -114,6 +114,7 @@ and $P$ is bounded.
 Choose an orthonormal basis of $V$ and its positive and negative coordinate directions. Their supporting halfspaces bound a compact box $Q$ containing $K$. Each $y\in Q$ with $\dist(y,K)\geq\tau$ is strictly excluded by a supporting halfspace: if $p$ is its closest point in $K$, take $a=(y-p)/\|y-p\|$, so $\langle a,y\rangle>h_K(a)=\langle a,p\rangle$. The corresponding open exclusion sets cover the compact set $\{y\in Q:\dist(y,K)\geq\tau\}$. A finite subcover, the box inequalities, and the prescribed direction $a_1$ give the result.
 \end{proof}
 
+\Needspace{9\baselineskip}
 \begin{lemma}[Global row multiplier from a convex relation]\label{lem:dual}
 Let $F\subseteq E\times E$ be compact and convex, let $\beta_1,\ldots,\beta_m$ be affine, and suppose some $(s_*,t_*)\in F$ has $\beta(s_*)<0$. If
 \[
@@ -321,6 +322,81 @@ The same row argument works for \emph{any} certified unit-normal outer polyhedro
 \end{equation}
 with the stated support errors and anchor. Thus a more efficient polyhedron can replace the coarse universal net. Supporting-halfspace approximation and preservation of invariance within a dynamical margin are classical mechanisms; the count here is a quantitative consequence for this degree-restricted certificate class.
 
+\subsection{A sharper count using certified projections}
+The direct support net above gives a simple bound, but it is not the sharpest geometric route. The classical Dudley projection construction achieves the square-root dependence on approximation accuracy; see the self-contained proof by Har-Peled--Jones~\cite{harpeled}. The following variant tracks support errors explicitly before extracting the VBC.
+
+\begin{proposition}[Projection-based component bound]\label{prop:projection}
+Assume \eqref{eq:bodydata}, and assume exact Euclidean projections onto $C$ can be computed. Set
+\[
+ \ell=\tfrac12\sqrt{R\varepsilon},\qquad
+ 0\leq\alpha\leq\min\{\varepsilon/16,\gamma/2\}.
+\]
+Take an $\ell$-net of the sphere $\{q:\|q-z_c\|=2R\}$, obtained from a maximal $\ell$-separated set. At each net point $q_i$ compute $p_i=\operatorname{proj}_C(q_i)$ and the unit normal
+$\nu_i=(q_i-p_i)/\|q_i-p_i\|$. Include these normals together with the given unsafe anchor, numbered first, and use support upper offsets within $\alpha$ of the true values. This constructs a polyhedron
+\[
+ C\subseteq P\subseteq C+(\varepsilon/2)\ball
+\]
+and hence a strict degree-at-most-$d$ fixed-anchor VBC with
+\begin{equation}\label{eq:projection-count}
+ m\leq1+\left\lceil
+ (1+8\sqrt{R/\varepsilon})^r-
+ (8\sqrt{R/\varepsilon}-1)^r
+ \right\rceil
+ =O_r\bigl((R/\varepsilon)^{(r-1)/2}\bigr).
+\end{equation}
+The initial, unsafe-anchor, and nominal propagation margins are respectively at least $\varepsilon$, $\gamma-\alpha$, and $\varepsilon$.
+\end{proposition}
+\begin{proof}
+Translate $z_c$ to the origin. The projection property gives
+$h_C(\nu_i)=\langle \nu_i,p_i\rangle$; thus every halfspace contains $C$.
+Packing disjoint balls of radius $\ell/2$ in the spherical annulus of radii $2R-\ell/2$ and $2R+\ell/2$ gives at most
+\[
+ \left\lceil(1+4R/\ell)^r-(4R/\ell-1)^r\right\rceil
+\]
+net points. Adding the anchor proves the stated count.
+
+We prove the outer-distance bound for every $z\in P\setminus C$.
+Write $p=\operatorname{proj}_C(z)$, $t=\|z-p\|>0$, and $n=(z-p)/t$.
+The ray $p+\lambda n$ meets the sphere of radius $2R$ at
+$q=p+Ln$ with $R\leq L\leq3R$.
+Choose a net point $q_i=q+e$ with $\|e\|\leq\ell$, put $d_i=p_i-p$, and
+$u_i=q_i-p_i=Ln+e-d_i$.
+The supporting-normal property at $p$ gives $\langle n,d_i\rangle\leq0$.
+Consequently,
+\begin{align*}
+ \langle u_i,z-p_i\rangle
+ &=Lt+t\langle n,e\rangle-(L+t)\langle n,d_i\rangle
+       -\langle e,d_i\rangle+\|d_i\|^2\\
+ &\geq (R-\ell)t-\ell^2/4.
+\end{align*}
+The last step uses
+$\|d_i\|^2-\langle e,d_i\rangle
+=\|d_i-e/2\|^2-\|e\|^2/4\geq-\ell^2/4$.
+The facet with support overestimate at most $\alpha$ implies
+$\langle u_i,z-p_i\rangle\leq\alpha\|u_i\|\leq3R\alpha$,
+since $\|q_i\|=2R$ and $\|p_i\|\leq R$.
+As $\ell\leq R/2$,
+\[
+ t\leq\frac{\ell^2/4+3R\alpha}{R-\ell}
+ \leq\frac{\ell^2}{2R}+6\alpha
+ \leq\frac{\varepsilon}{8}+\frac{6\varepsilon}{16}
+ =\frac{\varepsilon}{2}.
+\]
+This proves boundedness and the outer inclusion. The initial/unsafe margin calculation and global row-duality argument from Theorem~\ref{th:count} now give the VBC and its stated margins.
+\end{proof}
+The improved exponent is the classical Dudley approximation rate, not an independent novelty claim.
+
+\textbf{Certified inexact projection data.}
+Exact projections are sufficient but can be relaxed. It is enough to provide feasible points $p_i\in C$ with
+\[
+ \nu_i=\frac{q_i-p_i}{\|q_i-p_i\|},\qquad
+ 0\leq h_C(\nu_i)-\langle \nu_i,p_i-z_c\rangle\leq\sigma,
+ \qquad \sigma+\alpha\leq\varepsilon/16.
+\]
+Retain $\alpha\leq\gamma/2$ for the unsafe anchor. In the proof, the lower bound uses only $p_i\in C$; the upper bound becomes
+$\langle u_i,z-p_i\rangle\leq3R(\alpha+\sigma)$.
+Thus $\dist(z,C)\leq\ell^2/(2R)+6(\alpha+\sigma)\leq\varepsilon/2$ and the same component and margin guarantees hold. The gap is certifiable using a support upper bound and the feasible point, so no uncontrolled numerical normal error is assumed away. Exact projections give $\sigma=0$. For compact semialgebraic data, the stated real-algebraic optimization framework supplies exact projections; alternatively an oracle may return the certified feasible points and gap bounds above.
+
 \section{Recovering the matrix from finite information}\label{sec:lp}
 Assume also that $Z\subseteq z_c+R_Z\ball$ is certified. Put
 \[
@@ -368,9 +444,9 @@ $\xi_t+\xi_s\sum_jA_{ij}$. The node constraint therefore implies the desired ine
 This LP does not impose a nonconvex spectral constraint: strict propagation and initial separation imply $\rho(A)<1$ by Theorem~\ref{th:main}. Exact rational LP data admit a rational feasible solution. Floating-point discovery requires a separate exact or interval verification of \eqref{eq:lp}; a solver's success status alone is insufficient. If node evaluations themselves are approximate, their certified errors must also be charged to the budget. The feasibility proof as written assumes exact graph nodes.
 
 \textbf{Effective inputs and termination.}
-A conditional construction takes as input a certificate of \eqref{eq:bodydata}, geometry bounds, certified support-value oracles, and a finite paired-cover oracle. A maximal net takes finitely many selections by Lemma~\ref{lem:net}; finitely many support calls and finitely many LPs then finish the construction. The procedure does not discover $C$ automatically.
+A conditional construction takes as input a certificate of \eqref{eq:bodydata}, geometry bounds, certified support-value oracles, and a finite paired-cover oracle. A maximal net takes finitely many selections by Lemma~\ref{lem:net}; finitely many support calls and finitely many LPs then finish the construction. Proposition~\ref{prop:projection} substitutes finitely many exact projection calls for its sharper count. The procedure does not discover $C$ automatically.
 
-One explicit admissible representation is compact semialgebraic $X,X_0,X_u$ and $C$, polynomial $f$, and algebraic coefficients, with certified algebraic feature coordinates and bounds. Real-algebraic decision/optimization oracles can verify the body conditions, separator, and support bounds. By Carath\'eodory's theorem, a pair in $\F\subseteq E\times E$ needs at most $2r+1$ graph atoms, so its use in the transition-inclusion formula is finite. Sphere-net selection is also a semialgebraic feasibility query. On a known bounding box, certified Lipschitz bounds $L_s$ for $\phi_d$ and $L_t$ for $\phi_d\circ f$ give \eqref{eq:paircover} from a state $h$-net with $\xi_s=L_sh$, $\xi_t=L_th$. A finite box subdivision, exact nonempty-cell decisions, and one exact point of $X$ per occupied cell yield such a cover. If $L_t+\Lambda L_s>0$, choosing
+One explicit admissible representation is compact semialgebraic $X,X_0,X_u$ and $C$, polynomial $f$, and algebraic coefficients, with certified algebraic feature coordinates and bounds. Real-algebraic decision/optimization oracles can verify the body conditions, separator, and support bounds. By Carath\'eodory's theorem, a pair in $\F\subseteq E\times E$ needs at most $2r+1$ graph atoms, so its use in the transition-inclusion formula is finite. Sphere-net selection is also a semialgebraic feasibility query. On a known bounding box, certified Lipschitz bounds $L_s$ for $\phi_d$ and $L_t$ for $\phi_d\circ f$ give \eqref{eq:paircover} from a state $h$-net with $\xi_s=L_sh$, $\xi_t=L_th$. A finite box subdivision, exact nonempty-cell decisions, and one exact point of $X$ per occupied cell yield such a cover. For guaranteed positive mesh size, choose $0<\eta_*<\varepsilon$ (for example $\eta_*=\varepsilon/2$). If $L_t+\Lambda L_s>0$, choosing
 \[
  h\leq\frac{\varepsilon-\eta_*}{L_t+\Lambda L_s}
 \]
@@ -408,7 +484,7 @@ For any perturbed source $y=s+e\in C$ and independent successor error $w$, with 
 \]
 leaving the certified inclusion gap $7/320$. The anchor strictly separates $J_2$ by $\gamma$. Thus the full robust convexified hypothesis holds. Notice that $f(1)=3/4\in X_u$; global avoidance in a single step is not assumed.
 
-Theorem~\ref{th:count} gives the coarse universal bound $m\leq1537$ ($r=2$, $R/\varepsilon=12$). A smaller certified construction uses twelve rational unit normals, all with exact offset $3/5$:
+Here $r=2$ and $R/\varepsilon=12$. The direct support-net bound is $m\leq1537$, while Proposition~\ref{prop:projection} improves it to $m\leq112$: the expression inside its ceiling is $64\sqrt3$, between $110$ and $111$. Projection onto this ball is explicit. A smaller certified construction uses twelve rational unit normals, all with exact offset $3/5$:
 \[
  \begin{gathered}
  a_1=(1,0),\ a_2=(0,1),\ a_3=(-1,0),\ a_4=(0,-1),\\
@@ -446,6 +522,15 @@ nonzero. The finite constraints \eqref{eq:lp} hold exactly at all 161 nodes. The
  \rho(A)\leq\|A\|_\infty=\tfrac{58}{125}<1.
 \]
 This example verifies an end-to-end finite construction. It does not claim that twelve components or degree two are necessary.
+
+\textbf{Independent exact continuum check.}
+For the same fixed $B,A$, expand the twelve polynomials
+$r_i(x)=(AB(x))_i-B_i(f(x))$ in the degree-four Bernstein basis on $[-1,1]$:
+\[
+ r_i(2u-1)=\sum_{k=0}^4 c_{ik}\binom4k u^k(1-u)^{4-k},
+ \qquad 0\leq u\leq1.
+\]
+Exact rational conversion gives $\min_{i,k}c_{ik}=73/2500$. The basis functions are nonnegative and sum to one, so $r_i(x)\geq73/2500$ on the entire interval, independently of the cover/Lipschitz argument. Moreover $r_1(1)=73/2500$; this is the exact largest uniform global propagation margin for this \emph{fixed} certificate pair. It is not an optimum over other functions or matrices. The LP guarantee remains the conservative $1/100$ after charging the feature-cover errors. The replay records all sixty Bernstein coefficients and checks both proofs.
 
 \section{Adding functions at the same degree succeeds}
 Consider a contracting quarter-turn:
@@ -600,11 +685,11 @@ Finite construction & Existing geometric and LP methods & Certified paired featu
 \end{center}
 
 \section{Assessment, remaining questions, and reproducibility}
-The Schur characterization, dynamical limitations, and physical-robustness counterexample formalize observations supplied in Majid Zamani's comments. The quantitative support bound and certified finite row-LP construction are the additional steps developed in this revision.
+The Schur characterization, dynamical limitations, and physical-robustness counterexample formalize observations supplied in Majid Zamani's comments. The quantitative bounds, using classical support-net and Dudley projection geometry, and the certified finite row-LP construction are the additional steps developed in this revision.
 
-The revision proves the spectral characterization requested in the comments, makes its stronger dynamical limitations explicit, and adds two constructive consequences: the bound \eqref{eq:mcount} and the finite feasible LP \eqref{eq:lp}. The nonlinear example verifies their prerequisites on the entire convexified relation and supplies rational continuum margins. The general theorems are mathematical proofs in this note; their formal machine verification is not claimed.
+The revision proves the spectral characterization requested in the comments, makes its stronger dynamical limitations explicit, and adds constructive consequences: the bounds \eqref{eq:mcount} and \eqref{eq:projection-count}, and the finite feasible LP \eqref{eq:lp}. The nonlinear example verifies their prerequisites on the entire convexified relation and supplies rational continuum margins. The general theorems are mathematical proofs in this note; their formal machine verification is not claimed.
 
-The remaining research questions are substantive. The ordinary boundary class $\rho(A)=1$ still lacks a general converse here; onto examples show it cannot be obtained by silently strengthening to uniform strictness. Discovery of a suitable body $C$ is not solved by the conditional construction. The component count is coarse and no optimal count is asserted. Finally, novelty of the combined feature-space equivalence and constructive extraction must be established against the closest invariant-approximation and converse-certificate literature before a strong publication claim is warranted. The current results support a precise research direction; a publication-level novelty claim remains to be established.
+The ordinary boundary class $\rho(A)=1$ still lacks a general converse here; onto examples prevent recovering it by imposing strictness. Automatic discovery of the body $C$ and minimal component counts also remain open. The projection rate is classical, and publication-level novelty of the combined feature-space equivalence and certified extraction requires further comparison with the closest converse and invariant-approximation results.
 
 \textbf{Code and reproducibility.}
 All computational materials are in the public Certificate Expressiveness repository:
@@ -615,12 +700,13 @@ The Overleaf-ready source is \texttt{paper/converse.tex}; the exact nonlinear ma
 \texttt{evidence/nonlinear\_comparison\_matrix.json} and
 \texttt{evidence/constructive\_converse\_report.json}.
 Run \texttt{python src/constructive\_converse.py} for a standard-library-only exact replay.
-Optional \texttt{--discover} uses SciPy solely to propose a matrix, which is accepted only after rational verification.
+Optional \texttt{-{}-discover} uses SciPy solely to propose a matrix, which is accepted only after rational verification.
 The existing \texttt{src/exact\_verify.py} and
 \texttt{src/exact\_verify\_converse.py} retain the original continuum, rotation, and moment checks. Tests reject corrupted comparison matrices and understated feature-cover errors as well as invalid moment witnesses.
-The finite cover's soundness rests on the stated analytic derivative bounds; finite node checks without those bounds would not certify the continuum.
+The finite cover's soundness rests on the stated analytic derivative bounds; finite node checks without those bounds would not certify the continuum. The nonlinear example additionally has an independent exact Bernstein proof and an endpoint witness for its fixed-certificate propagation margin.
 
-\begin{thebibliography}{4}
+\clearpage
+\begin{thebibliography}{5}
 \small\raggedright
 \bibitem{hst}
 Z. Horv\'ath, Y. Song, and T. Terlaky,
@@ -643,5 +729,10 @@ G. O. Berger and S. Sankaranarayanan,
 \emph{Counterexample-guided computation of polyhedral Lyapunov functions for piecewise linear systems},
 Automatica, vol. 155, article 111165, 2023.
 DOI: 10.1016/j.automatica.2023.111165.
+\bibitem{harpeled}
+S. Har-Peled and M. Jones,
+\emph{Proof of Dudley's Convex Approximation},
+arXiv:1912.01977v3, 2024. Theorem 1.4.
+\par\url{https://arxiv.org/abs/1912.01977v3}.
 \end{thebibliography}
 \end{document}

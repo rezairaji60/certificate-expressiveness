@@ -29,6 +29,9 @@
     "robust_successor_norm_bound": "37/64",
     "robust_inclusion_gap": "7/320",
     "generic_component_upper_bound": 1537,
+    "projection_component_upper_bound": 112,
+    "projection_support_error_cap": "1/320",
+    "projection_outer_error_bound": "1/40",
     "used_components": 12,
     "polygon_vertex_count": 12,
     "maximum_polygon_vertex_squared_norm": "2/5",
@@ -94,6 +97,106 @@
     "maximum_row_sum": "58/125",
     "certified_spectral_radius_upper_bound": "14/15"
   },
+  "independent_global_polynomial_certificate": {
+    "basis": "degree-four Bernstein on [-1,1]",
+    "componentwise_coefficients": [
+      [
+        "1901/2500",
+        "1621/2500",
+        "1223/2500",
+        "707/2500",
+        "73/2500"
+      ],
+      [
+        "43/80",
+        "43/80",
+        "149/240",
+        "63/80",
+        "3/80"
+      ],
+      [
+        "7/20",
+        "7/20",
+        "31/60",
+        "17/20",
+        "27/20"
+      ],
+      [
+        "53/80",
+        "53/80",
+        "139/240",
+        "33/80",
+        "93/80"
+      ],
+      [
+        "667/1250",
+        "407/1250",
+        "574/1875",
+        "297/625",
+        "41/1250"
+      ],
+      [
+        "4/5",
+        "4/5",
+        "19/30",
+        "3/10",
+        "3/5"
+      ],
+      [
+        "2/5",
+        "2/5",
+        "17/30",
+        "9/10",
+        "3/5"
+      ],
+      [
+        "1/2",
+        "1/2",
+        "8/15",
+        "3/5",
+        "3/2"
+      ],
+      [
+        "5769/10000",
+        "3449/10000",
+        "8311/30000",
+        "3733/10000",
+        "337/10000"
+      ],
+      [
+        "67/80",
+        "67/80",
+        "157/240",
+        "23/80",
+        "27/80"
+      ],
+      [
+        "29/80",
+        "29/80",
+        "131/240",
+        "73/80",
+        "69/80"
+      ],
+      [
+        "7/16",
+        "7/16",
+        "25/48",
+        "11/16",
+        "123/80"
+      ]
+    ],
+    "requested_propagation_margin": "1/100",
+    "certified_uniform_propagation_margin": "73/2500",
+    "minimum_bernstein_slack_at_requested_margin": "12/625",
+    "smallest_endpoint_residual": "73/2500",
+    "sharp_for_fixed_certificate": true,
+    "endpoint_witness": {
+      "component_one_based": 1,
+      "state": "1",
+      "residual": "73/2500"
+    },
+    "scope": "This is a second, cover-independent continuum proof for the committed B and A, not an optimal margin over all certificates."
+  },
   "certificate_margins": {
     "initial_lower_bound": "23/80",
     "unsafe_anchor_lower_bound": "1/10",
@@ -126,5 +229,5 @@
       "largest_second_successor_on_domain": "33/64"
     }
   },
-  "limit": "Continuum soundness uses the proved Lipschitz cover and affine extension to convex mixtures. General theorems are not machine-checked."
+  "limit": "The example has both a proved Lipschitz paired-cover argument and an independent exact Bernstein polynomial certificate. Affinity extends the graph inequalities to convex mixtures. General theorems are not machine-checked."
 }

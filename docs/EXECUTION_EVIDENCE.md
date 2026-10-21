@@ -72,3 +72,37 @@ not establish publication priority or revolutionary significance.
 
 The CI workflow runs all three exact replays and the full test suite, then
 checks the three deterministic reports against their committed versions.
+
+## Further verification and projection refinement — October 21, 2026
+
+This audit starts from the published Schur-stable revision. The reattached
+feedback was byte-for-byte identical to the comments already addressed.
+The proof review adds a sharper, attributed geometric construction and a
+second exact continuum verification of the nonlinear example.
+
+| Check | Observed result |
+| --- | --- |
+| Original, converse, and constructive replays | All three status checks passed |
+| Default replay determinism | All three JSON reports recomputed byte-for-byte identically |
+| Evidence and rejection tests | All 13 passed |
+| Optional LP discovery | Reconstructed exactly the same committed comparison matrix; both continuum arguments passed |
+| Projection count for the example | At most 112, replacing the direct support-net bound 1,537 under the stated projection certificates |
+| Projection error constants | ell²/(2R)+6 alpha <= epsilon/2; the inexact variant charges alpha+sigma |
+| Independent polynomial proof | All 60 degree-four Bernstein coefficients verified exactly |
+| Exact uniform margin for the fixed B,A | 73/2500, attained at component 1 and x=1 |
+| Excessive margin rejection | A target just above 73/2500 is rejected |
+| Revised PDF | 13 pages, successful pdfLaTeX/latexmk build with no warnings or overfull/underfull boxes |
+| PDF visual inspection | All 13 pages inspected; no orphan continuation page, clipped math, or unresolved references |
+| Copyable command | Literal --discover preserved in extracted PDF text |
+
+The improved geometric exponent is classical Dudley approximation, cited
+through Har-Peled–Jones, arXiv:1912.01977v3. Its use here includes explicit
+support and projection-gap budgets before extraction of the degree-bounded
+certificate. The 112 bound is a conditional geometric guarantee; twelve
+components still suffice in the explicit example, and no optimal component
+count is asserted.
+
+The Bernstein argument is independent of the cover nodes and derivative
+bounds. The sharp 73/2500 margin concerns only the fixed committed functions
+and matrix, not an optimization over all certificates. The general theorem
+proofs and publication novelty still require independent mathematical review.

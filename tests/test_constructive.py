@@ -6,7 +6,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"src"))
-from constructive_converse import MATRIX_FILE, replay, validate_matrix
+from constructive_converse import MATRIX_FILE, replay, validate_matrix, verify_global_polynomials
 
 
 class ConstructiveCertificateTests(unittest.TestCase):
@@ -37,6 +37,17 @@ class ConstructiveCertificateTests(unittest.TestCase):
     def test_uncertified_smaller_successor_cover_fails(self):
         with self.assertRaisesRegex(ValueError, "certified cover radii"):
             validate_matrix(self.matrix, xi_t=Q(0))
+
+    def test_cover_independent_proof_attains_exact_sharp_margin(self):
+        report = verify_global_polynomials(self.matrix, eta=Q(73,2500))
+        self.assertTrue(report["sharp_for_fixed_certificate"])
+        self.assertEqual(report["certified_uniform_propagation_margin"], "73/2500")
+        self.assertEqual(report["endpoint_witness"],
+                         {"component_one_based": 1, "state": "1", "residual": "73/2500"})
+
+    def test_cover_independent_proof_rejects_margin_above_endpoint(self):
+        with self.assertRaisesRegex(ValueError, "Global polynomial"):
+            verify_global_polynomials(self.matrix, eta=Q(73,2500)+Q(1,100000))
 
     def test_excessive_propagation_margin_fails(self):
         with self.assertRaisesRegex(ValueError, "Finite LP inequality"):

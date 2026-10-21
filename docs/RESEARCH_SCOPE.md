@@ -43,3 +43,11 @@ and a general neutral-class converse remain open.
 See [CONVERSE_SCOPE.md](CONVERSE_SCOPE.md),
 [the revision audit](REVISION_CHECKS.md), and
 [the revised note](../paper/converse.pdf).
+
+The further October 21 audit adds a classical Dudley projection construction
+with an explicit support-error budget, improving the geometric component-bound
+exponent from r-1 to (r-1)/2 when certified projection data are available. It also
+adds an independent Bernstein polynomial verification and an endpoint witness
+for the nonlinear certificate's exact fixed-pair margin 73/2500.
+These are constructive and verification improvements; no new approximation
+exponent or general neutral-class converse is claimed.

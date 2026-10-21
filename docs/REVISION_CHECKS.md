@@ -13,7 +13,7 @@ are conditional theorems with proofs, not claims based on solver success.
 | Physical versus feature robustness | Section 9 retains the identity example and adds f=x² with an ordinary quadratic certificate, physical disturbance radius 1/8, and an unsafe fixed point excluding the strict class at every degree/count. |
 | Same-degree examples and fixed-anchor scope | Section 7 retains “one affine function impossible; four succeed,” without a minimality claim. Section 8 retains the moment obstruction through degree three for every finite fixed-anchor family. |
 | Nonlinear positive example | Section 6 proves a contraction inequality for every pair in the convexified degree-two relation and verifies independent feature errors of radius 1/20. |
-| Explicit finite construction | Sections 4–5 give a sphere-net component bound, support-error allocation, a bounded-row-sum dual witness, and a feasible finite LP with separate source and successor error budgets. |
+| Explicit finite construction | Sections 4–5 give support-net and projection component bounds, support-error allocation, a bounded-row-sum dual witness, and a feasible finite LP with separate source and successor error budgets. |
 | Effective inputs | Section 5 states certified body/support/paired-cover oracles, an admissible semialgebraic representation, exact-node assumptions, and finite termination conditional on these inputs. Body discovery remains open. |
 | Accurate comparisons | Section 10 compares HST Theorem 3.10/Remark 3.11, Liu Section IV/Theorem 30, and Alessio et al. Theorem 4 with its subsequent construction. A further comparison to Berger–Sankaranarayanan Sections 6–7 records finite LP/packing precedents. No classical mechanism is claimed independently new. |
 | Finite continuous features | The remark following Corollary 1 explains the extension and the role of polynomial features in interpreting the degree bound. |
@@ -48,6 +48,28 @@ additional steps developed in this revision.
   unsafe anchor. The maximum row sum is 58/125 < 1.
 - The continuum conclusion follows from the proved derivative/cover bounds
   and affine extension to convex combinations. Grid checks alone are not proof.
+
+## Further audit and strengthening
+
+- The repeated attachment was verified to be byte-for-byte identical to the
+  original comments. The repository already incorporated those requests.
+- A new projection-based construction applies classical Dudley geometry, as
+  presented by Har-Peled–Jones (arXiv:1912.01977v3). Its error proof is written
+  out with support overestimation charged explicitly.
+- The new rate is O_r((R/epsilon)^((r-1)/2)), conditional on exact projections or certified feasible projection/support-gap
+  data. The worked example's guaranteed bound improves from 1,537 to 112.
+  No optimality claim is made for VBC component count.
+- The key bound is distance(z,C) <= ell^2/(2R)+6*alpha <= epsilon/2,
+  where ell=sqrt(R*epsilon)/2 and alpha<=epsilon/16.
+- Exact Bernstein conversion independently verifies all twelve global
+  polynomial inequalities without using the state cover or derivative bounds.
+  All sixty coefficients are recorded in the deterministic report.
+- Their minimum is 73/2500, attained by the first residual at x=1, proving
+  sharpness of that uniform margin for the fixed committed B,A.
+- Two additional tests verify this endpoint sharpness and reject an excessive
+  margin. All 13 tests pass.
+- The effective mesh construction now explicitly selects eta_* strictly below
+  epsilon to guarantee a positive mesh size.
 
 ## Limits of this review
 
