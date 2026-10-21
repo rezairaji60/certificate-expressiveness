@@ -1,0 +1,130 @@
+{
+  "status": "EXACT_CONSTRUCTIVE_EVIDENCE_VERIFIED",
+  "arithmetic": "fractions.Fraction; no floating point in replay",
+  "example": {
+    "X": [
+      "-1",
+      "1"
+    ],
+    "X0": [
+      "-1/4",
+      "1/4"
+    ],
+    "Xu": [
+      "7/10",
+      "4/5"
+    ],
+    "map": "x/2 + x^2/4",
+    "features": [
+      "x",
+      "x^2"
+    ],
+    "degree_bound": 2
+  },
+  "geometry": {
+    "convexified_relation_contraction_bound": "13/16",
+    "initial_feature_norm_bound": "5/16",
+    "robust_body_radius": "3/5",
+    "feature_robustness_radius": "1/20",
+    "robust_successor_norm_bound": "37/64",
+    "robust_inclusion_gap": "7/320",
+    "generic_component_upper_bound": 1537,
+    "used_components": 12,
+    "polygon_vertex_count": 12,
+    "maximum_polygon_vertex_squared_norm": "2/5",
+    "polygon_vertices": [
+      [
+        "-3/5",
+        "-1/5"
+      ],
+      [
+        "-3/5",
+        "1/5"
+      ],
+      [
+        "-3/7",
+        "-3/7"
+      ],
+      [
+        "-3/7",
+        "3/7"
+      ],
+      [
+        "-1/5",
+        "-3/5"
+      ],
+      [
+        "-1/5",
+        "3/5"
+      ],
+      [
+        "1/5",
+        "-3/5"
+      ],
+      [
+        "1/5",
+        "3/5"
+      ],
+      [
+        "3/7",
+        "-3/7"
+      ],
+      [
+        "3/7",
+        "3/7"
+      ],
+      [
+        "3/5",
+        "-1/5"
+      ],
+      [
+        "3/5",
+        "1/5"
+      ]
+    ],
+    "state_cover_nodes": 161,
+    "state_cover_radius": "1/160",
+    "source_feature_error_bound": "3/160",
+    "successor_feature_error_bound": "1/80",
+    "row_sum_cap": "1",
+    "combined_feature_error_budget": "1/32"
+  },
+  "finite_lp": {
+    "minimum_exact_lp_slack": "1/400",
+    "maximum_row_sum": "58/125",
+    "certified_spectral_radius_upper_bound": "14/15"
+  },
+  "certificate_margins": {
+    "initial_lower_bound": "23/80",
+    "unsafe_anchor_lower_bound": "1/10",
+    "global_propagation_lower_bound": "1/100"
+  },
+  "scope_examples": {
+    "physical_counterexample": {
+      "map": "x^2",
+      "physical_disturbance_radius": "1/8",
+      "invariant_interval": [
+        "-1/2",
+        "1/2"
+      ],
+      "disturbed_image_interval": [
+        "-1/8",
+        "3/8"
+      ],
+      "ordinary_comparison_matrix": [
+        [
+          "1"
+        ]
+      ],
+      "initial_margin": "7/16",
+      "unsafe_anchor_margin": "1/16",
+      "unsafe_fixed_point": "1",
+      "strict_class_exclusion": "all degrees and finite component counts; analytic corollary"
+    },
+    "nonlinear_positive_example": {
+      "unsafe_first_successor_of_one": "3/4",
+      "largest_second_successor_on_domain": "33/64"
+    }
+  },
+  "limit": "Continuum soundness uses the proved Lipschitz cover and affine extension to convex mixtures. General theorems are not machine-checked."
+}

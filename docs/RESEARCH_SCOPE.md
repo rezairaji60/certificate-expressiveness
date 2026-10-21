@@ -26,4 +26,20 @@ The project name **Certificate Expressiveness** accommodates those later extensi
 
 ## Converse stage
 
-The October 12 candidate converse addresses Majid's subsequent request for a finite polyhedral invariant in a prescribed monomial representation. It uses compactness, continuity, and a positive robust separation margin for the convexified transition relation and convexified reachable feature sets. Equivalence is established only for fixed-anchor VBCs with an additional uniform strict propagation margin; the same assumption is sufficient, but not necessary, for the ordinary VBC class. The identity-map counterexample makes that distinction explicit. See [CONVERSE_SCOPE.md](CONVERSE_SCOPE.md) and [the reviewed note](../paper/converse.pdf).
+The October 21 revision incorporates the spectral-radius characterization and
+scope restrictions identified in Majid’s comments on the October 12 note.
+Robust convexified-feature separation is equivalent to finite forward fixed-anchor
+VBCs with constant nonnegative Schur-stable matrices, ρ(A)<1, or to uniformly
+strict global propagation. It does not characterize the ordinary boundary
+ρ(A)=1. Onto maps and unsafe periodic points exclude the strict class at every
+degree, including the original nonlinear map with a valid ordinary quartic VBC.
+
+The constructive strengthening supplies a coarse component bound and a feasible
+finite row LP from a certified chosen body, geometry/support bounds, and paired
+source/successor feature-cover errors. A nonlinear exact rational example verifies
+these conditions on the full convexified relation. Effective body discovery
+and a general neutral-class converse remain open.
+
+See [CONVERSE_SCOPE.md](CONVERSE_SCOPE.md),
+[the revision audit](REVISION_CHECKS.md), and
+[the revised note](../paper/converse.pdf).

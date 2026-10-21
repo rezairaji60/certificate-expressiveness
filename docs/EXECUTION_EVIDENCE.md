@@ -42,3 +42,33 @@ Executed on the current repository snapshot with the converse update:
 The workflow now runs both exact replays and checks both committed JSON files.
 The checks validate finite evidence and reproducibility. General theorem validity
 and novelty remain matters for mathematical and literature review.
+
+## Schur characterization and finite construction — October 21, 2026
+
+Executed against the revised note and code:
+
+| Check | Observed result |
+| --- | --- |
+| Original exact degree-separation replay | EXACT_EVIDENCE_VERIFIED |
+| Rotation and moment replay | EXACT_FINITE_EVIDENCE_VERIFIED |
+| New nonlinear constructive replay | EXACT_CONSTRUCTIVE_EVIDENCE_VERIFIED |
+| Deterministic committed reports | All three reports recomputed byte-for-byte identically |
+| Evidence and rejection tests | All 11 passed |
+| Optional nonlinear LP discovery | SciPy 1.17.0 proposed a matrix; rational reconstruction passed exact replay |
+| Nonlinear polygon | All 12 exact vertices enumerated; maximum squared norm 2/5 |
+| Finite node inequalities | 1,932 passed with minimum exact slack 1/400 |
+| Feature-cover errors | Source 3/160, successor 1/80, row cap 1 |
+| Certified margins | Initial >=23/80, unsafe anchor >=1/10, propagation >=1/100 |
+| Schur bound | Exact maximum row sum 58/125 < 1; no floating eigenvalue test |
+| Revised PDF | Successful pdfLaTeX/latexmk build, 11 pages, no warnings or overfull/underfull boxes |
+| Rendered PDF | All 11 pages visually inspected; final modified page re-rendered and inspected |
+
+The finite LP's continuum soundness uses the proved derivative and paired-cover
+bounds and affine extension to the full convexified relation. It is not an
+inference from finitely many samples without an error bound.
+The general theorems remain mathematical proofs in the note, rather than
+formal proof-assistant results. The targeted primary-source comparison does
+not establish publication priority or revolutionary significance.
+
+The CI workflow runs all three exact replays and the full test suite, then
+checks the three deterministic reports against their committed versions.

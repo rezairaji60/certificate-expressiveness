@@ -1,87 +1,124 @@
-# Robust converse at prescribed degree
+# Schur-stable converse and certified finite construction
 
-The reviewed October 12, 2026 note is [paper/converse.pdf](../paper/converse.pdf).
+The October 21, 2026 revision is [paper/converse.pdf](../paper/converse.pdf).
 Its self-contained [LaTeX source](../paper/converse.tex) compiles with pdfLaTeX
-and can be uploaded to Overleaf.
+and can replace the main file in Overleaf.
 
-## Candidate result and assumptions
+## Exact class and assumptions
 
-Fix a total polynomial degree bound d. The verification domain X is compact,
-the map f: X -> X is continuous, and the nonempty compact initial and unsafe
-sets are disjoint. The monomial feature map excludes the constant monomial;
-affine offsets represent constant polynomial coefficients.
+Fix total degree at most d. X is compact, f: X -> X is continuous,
+and the nonempty compact initial and unsafe sets are disjoint.
+The designated first component is positive on **every** unsafe state;
+all components are strictly negative on the initial set.
+The comparison matrix is constant and entrywise nonnegative.
 
-The transition relation is the convex hull of all pairs of a monomial lift
-and its successor lift. It includes mixtures whose source atoms lie outside
-the initial set. Reachable feature sets are convexified at every iteration.
-Source and successor feature errors are independent perturbations in the
-relative affine feature space.
+The feature map contains all nonconstant monomials through d; affine offsets
+represent constants. The graph of paired source/successor features is convexified,
+and reachable feature sets are convexified at every iteration. Source and
+successor errors are independent balls in the relative affine feature space,
+and may leave the realizable monomial variety.
 
-Robust separation of this reachability closure from the convex hull of unsafe
-lifts yields a finite bounded polyhedron and a fixed-anchor VBC of degree at
-most d. Equivalence is claimed for certificates with a uniform strict
-propagation margin, B(f(x)) <= A B(x) - eta*1, eta > 0. The same condition is
-sufficient but need not be necessary for the ordinary inequality without eta.
-The fixed unsafe anchor is one designated component positive throughout Xu.
+Theorem 1 proves equivalence of:
 
-The proof is an existence construction. It provides no terminating synthesis
-algorithm or a priori component bound. Strict margins permit rational
-coefficient approximation on compact data; this is not a general computable
-rounding procedure. The matrix A is constant and entrywise nonnegative; no
-spectral-radius assumption is imposed.
+1. Positive-radius robust separation of that convexified feature closure.
+2. A finite degree-bounded forward fixed-anchor VBC with a uniform strict
+   global propagation margin.
+3. An ordinary VBC in the same class with a Schur-stable matrix, ρ(A) < 1.
 
-## Analytical examples and exact replay
+Every ordinary certificate under these compact-domain and strict-initial
+assumptions has ρ(A) ≤ 1. The neutral boundary ρ(A) = 1 is not characterized
+by the robust converse. Constant shifting interconverts items 2 and 3 without
+changing the degree or number of functions.
 
-A contracting quarter-turn admits four affine components and an exact
-nonnegative cyclic comparison matrix with propagation margin 1/20. A scalar
-affine VBC is impossible. Four is not claimed to be the minimum component count.
+## Stronger dynamical restriction
 
-The earlier nonlinear scalar example has a one-frame interpolation-inspired
-barrier certificate (IBC) of degree two. Its exact moment witness excludes
-every finite fixed-anchor VBC of degree at most three, regardless of the
-constant nonnegative comparison matrix.
+The strict class forces all trajectories from the entire verification domain
+to become uniformly negative in the certificate functions after a common
+finite time. Ordinary Schur-stable certificates have this property after
+the constant shift, not necessarily in their original functions.
+An unsafe periodic point or onto map excludes this entire class at all degrees
+and finite component counts.
 
-From the repository root, run:
+The original nonlinear degree-separation map is onto. Its ordinary quartic
+certificate remains valid with A=[1], while no strict or Schur-stable certificate
+exists at any degree. The new converse therefore does not explain quartic recovery.
 
-```sh
-python src/exact_verify_converse.py
-```
+Physical robust safety is different. For f=x², the initial interval [-1/4,1/4]
+is safe against state disturbances of size 1/8 within [-1/2,1/2], yet the unsafe
+fixed point 1 excludes the feature-robust/Schur-stable class at every degree.
 
-This requires only Python 3.10+ and the standard library. Do not use -O.
-It reports EXACT_FINITE_EVIDENCE_VERIFIED and writes
-[evidence/converse_report.json](../evidence/converse_report.json).
-The replay checks every affine coefficient and offset in the global rotation
-identity, the robustness bound 469/1000 < 1/2, the exact moments through degree
-three, support membership, and unit probability masses.
+## Quantitative and finite construction
 
-The replay is finite evidence verification. The converse theorem and the
-universal component-count exclusion rely on the analytical proofs in the note.
+Theorems 2 and 3 start with a **certified chosen convex body**, a feature
+robustness radius epsilon, a fixed unit unsafe separator of margin gamma,
+and geometry/support information. A sphere-net volume estimate gives
 
-The existing exact degree-separation replay and its five tests remain:
+m <= 1 + ceil[(1+32 R/epsilon)^r - (32 R/epsilon-1)^r],
+
+where r is the affine feature dimension and the body lies within radius R.
+Support overestimation alpha <= min(epsilon/8, gamma/2) preserves the
+unsafe margin and keeps the polyhedron in a source-error tube.
+
+A finite LP then extracts the nonnegative comparison rows. A certified paired
+cover of exact graph nodes has errors xi_s and xi_t; the row-sum cap Lambda
+charges xi_t + Lambda*xi_s against the propagation margin.
+The LP is provably feasible under that budget, and its accepted matrix certifies
+the entire continuum and full convexified relation. No numerical spectral
+constraint is required; Schur stability follows analytically.
+
+The note specifies support/cover/decision oracles and an admissible semialgebraic
+representation. Compactness and continuity alone do not constitute an executable
+algorithm. The procedure does not automatically find the body C.
+Approximate node evaluations require additional certified errors; the stated
+feasibility proof uses exact graph nodes.
+
+## Nonlinear certificate and exact replay
+
+For f=x/2+x²/4 on [-1,1], degree-two features contract on the **full**
+convexified relation by a certified norm factor 13/16. The feature ball
+C=(3/5)B with independent errors epsilon=1/20 has successor norm at most 37/64.
+Twelve rational supporting directions meet the source-tube condition.
+
+A 161-node exact paired cover uses source error 3/160 and successor error 1/80.
+A sparse rational 12-by-12 matrix passes all finite LP inequalities with
+minimum slack 1/400 at target propagation margin 1/100.
+The initial margin is at least 23/80, unsafe-anchor margin at least 1/10,
+and maximum row sum is 58/125 < 1. No minimal degree or component count is claimed.
+
+From the repository root:
 
 ```sh
 python src/exact_verify.py
+python src/exact_verify_converse.py
+python src/constructive_converse.py
 python -m unittest discover -s tests -v
 ```
 
-GitHub Actions executes both exact replays and the tests, then checks that the
-generated JSON evidence equals the committed evidence.
+All replays use only the standard library. Do not run the older assertion-based
+scripts with -O. There are 11 tests, including rejection of an erased anchor row,
+negative matrix entries, and understated source or successor cover errors.
+The new replay uses explicit exceptions and does not depend on assertions.
 
-Compile the new note from paper/:
+Optional discovery:
 
 ```sh
-latexmk -pdf -interaction=nonstopmode -halt-on-error converse.tex
+python -m pip install -r requirements-optional.txt
+python src/constructive_converse.py --discover
 ```
 
-## Literature and novelty boundary
+SciPy proposes a matrix; rational reconstruction is accepted only after exact
+verification. Solver status is not proof. Committed reports are deterministic.
 
-The HST comparison was checked against arXiv:1607.01107v1, Theorem 3.10,
-equation (11), and Remark 3.11. The row-multiplier argument is classical
-convex separation.
+## Literature and remaining questions
 
-The note also cites Jun Liu's robust discrete-time converse barrier result
-(arXiv:2007.11086, Section IV, Theorem 30) and Alessio et al.'s construction of
-polyhedral invariants from contractive ellipsoids (Automatica 43, 2007,
-DOI 10.1016/j.automatica.2007.04.028).
-A full comparison of assumptions and conclusions remains necessary before
-claiming novelty for the fixed-degree convexified-relation characterization.
+The revision explicitly compares HST Theorem 3.10 / Remark 3.11,
+Liu Section IV / Theorem 30, Alessio et al. Theorem 4 and its subsequent
+ellipsoidal construction, and Berger–Sankaranarayanan's finite LP synthesis
+of polyhedral Lyapunov functions. Multiplier arguments, approximation within
+a dynamical margin, and finite LP synthesis are established mechanisms.
+
+Novelty of the combined fixed-feature equivalence and certified extraction
+still requires assessment. A general converse at ρ(A)=1, effective discovery
+of a suitable body, and useful sharper complexity bounds remain open here.
+General theorem proofs and priority have not been independently or formally
+verified.
