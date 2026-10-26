@@ -79,3 +79,26 @@ Priority and publication significance are not settled by a targeted literature
 comparison. The conditional construction does not discover the robust body.
 A general converse for the neutral rho(A)=1 class remains open in this work.
 The original degree-gap proof and its computational evidence are preserved.
+
+## Remaining points of October 23: scientific corrections and new proof
+
+- Majid's scalar affine baseline is now explicit in Section 6 and the replay.
+  Its propagation margin 1/20 is larger than 73/2500 for the fixed
+  twelve-component pair; the latter is used only to validate extraction.
+- Proposition 3 proves a perturbation-stable nonlinear one-versus-four recovery
+  at degree one, analytically excluding every scalar affine multiplier.
+- The explicit cubic family has minimum forward scalar comparison degree two
+  and minimum finite-vector degree one. This does not identify the minimum
+  affine vector component count.
+- Exact multivariate polynomial coefficients are checked against a
+  nonnegative disk-factor representation. Mixed transitions have an additional
+  averaged perturbation bounded by 1/40, giving robust square bound 247/500
+  at independent feature-error radius 1/100.
+- Theorem-specific comparisons include the stated prior theorem/algorithm
+  numbers, Berger–Sankaranarayanan Section 9, and the HSCC 2024 polynomial-cone
+  framework. The method is consistently supplied-body certificate extraction.
+- A consolidated manuscript outline is included. It distinguishes the
+  forward-only robust converse from the forward/backward moment theorem,
+  and does not defer drafting until the rho(A)=1 case is solved.
+- The geometric row-bound constant is renamed M_B to avoid reusing the
+  monomial feature dimension D.

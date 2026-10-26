@@ -1,6 +1,6 @@
 # Schur-stable converse and certified finite construction
 
-The October 21, 2026 revision is [paper/converse.pdf](../paper/converse.pdf).
+The October 25, 2026 revision is [paper/converse.pdf](../paper/converse.pdf).
 Its self-contained [LaTeX source](../paper/converse.tex) compiles with pdfLaTeX
 and can replace the main file in Overleaf.
 
@@ -93,7 +93,7 @@ A 161-node exact paired cover uses source error 3/160 and successor error 1/80.
 A sparse rational 12-by-12 matrix passes all finite LP inequalities with
 minimum slack 1/400 at target propagation margin 1/100.
 The initial margin is at least 23/80, unsafe-anchor margin at least 1/10,
-and maximum row sum is 58/125 < 1. No minimal degree or component count is claimed.
+and maximum row sum is 58/125 < 1. This supplied-body extraction example is not a function-count benefit: b=x-3/5, A=1/2 is a scalar affine certificate with margins 7/20, 1/10, 1/20. Its propagation margin exceeds 73/2500.
 
 The replay additionally converts every global residual (AB)_i-B_i(f) into the
 degree-four Bernstein basis on [-1,1], using exact rational arithmetic and no
@@ -112,7 +112,7 @@ python -m unittest discover -s tests -v
 ```
 
 All replays use only the standard library. Do not run the older assertion-based
-scripts with -O. There are 13 tests, including rejection of an erased anchor row,
+scripts with -O. There are 20 tests, including rejection of an erased anchor row,
 negative matrix entries, and understated source or successor cover errors.
 The new replay uses explicit exceptions and does not depend on assertions.
 Tests also verify the sharp Bernstein margin and reject a margin just above
@@ -128,12 +128,35 @@ python src/constructive_converse.py --discover
 SciPy proposes a matrix; rational reconstruction is accepted only after exact
 verification. Solver status is not proof. Committed reports are deterministic.
 
+## A nonlinear function-count and degree tradeoff
+
+On the unit disk with initial radius 1/4 and unsafe point (3/4,0), any continuous
+map f=(9/10)Rx+e with sup||e||<=delta<1/20 has no scalar affine certificate
+for any nonnegative multiplier. At x_*=R^T*a/||a||, every possible affine
+separator is negative while its successor value is positive.
+Four affine functions +/-x_j-1/2 succeed with A=(9/10)Pi and strict margin
+1/20-delta. This is an analytic proof over all scalar affine functions.
+
+The cubic family f_theta=(9/10-theta*(1-||x||²))Rx, 0<theta<=1/40,
+satisfies that assumption. The same four functions have uniform margin 1/40;
+a scalar quadratic ||x||²-1/4 has multiplier 81/100 and margin 19/400.
+Thus the minimum forward scalar comparison degree is exactly two and the
+minimum finite-vector degree exactly one. The minimum vector count is not
+proved; it lies between two and four.
+
+All convexified pairs obey t=(9/10)Rs+e_bar with ||e_bar||<=1/40.
+The square C=[-1/2,1/2]² has robust successor infinity norm <=247/500
+for independent feature errors 1/100. Exact multivariate polynomial
+coefficient/factor identities verify continuum propagation, without a grid.
+
 ## Literature and remaining questions
 
 The revision explicitly compares HST Theorem 3.10 / Remark 3.11,
 Liu Section IV / Theorem 30, Alessio et al. Theorem 4 and its subsequent
 ellipsoidal construction, and Berger–Sankaranarayanan's finite LP synthesis
-of polyhedral Lyapunov functions. The sharper projection count explicitly cites
+of polyhedral Lyapunov functions, including its Section 9 discrete-time extension discussion.
+Theorem-specific comparisons now also cover the HSCC 2024 polynomial-cone
+positive-system framework (Theorem 3.5, Corollary 5.2, Algorithms 2–6). The sharper projection count explicitly cites
 Har-Peled–Jones, arXiv:1912.01977v3, for the classical Dudley mechanism.
 Multiplier arguments, approximation within
 a dynamical margin, and finite LP synthesis are established mechanisms.
@@ -143,3 +166,5 @@ still requires assessment. A general converse at ρ(A)=1, effective discovery
 of a suitable body, and useful sharper complexity bounds remain open here.
 General theorem proofs and priority have not been independently or formally
 verified.
+
+The consolidated outline in MANUSCRIPT_OUTLINE.md organizes the established results for drafting. As Majid requested, the general neutral-class converse is not a prerequisite for drafting this paper.

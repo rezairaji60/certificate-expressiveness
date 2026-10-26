@@ -37,6 +37,201 @@
     "robust_successor_infinity_norm_bound": "469/1000",
     "verification": "all affine coefficients and constant offsets match"
   },
+  "scalar_baseline": {
+    "degree": 1,
+    "components": 1,
+    "multiplier": "1/2",
+    "initial_margin": "7/20",
+    "unsafe_anchor_margin": "1/10",
+    "global_propagation_margin": "1/20",
+    "residual_coefficients_ascending": [
+      "3/10",
+      "0",
+      "-1/4"
+    ],
+    "domain_proof": "residual-1/20=(1-x^2)/4; equality at x=+/-1",
+    "comparison": "12-component example validates supplied-body extraction, not a benefit over scalar"
+  },
+  "nonlinear_same_degree_recovery": {
+    "dynamics_degree": 3,
+    "certificate_degree": 1,
+    "components": 4,
+    "theta": "1/40",
+    "theta_family": "0 < theta <= 1/40",
+    "dynamics": "f=(9/10-theta*(1-x1^2-x2^2))*(-x2,x1)",
+    "A": [
+      [
+        "0",
+        "0",
+        "0",
+        "9/10"
+      ],
+      [
+        "9/10",
+        "0",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "9/10",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "9/10",
+        "0"
+      ]
+    ],
+    "initial_margin": "1/4",
+    "unsafe_anchor_margin": "1/4",
+    "uniform_family_propagation_margin": "1/40",
+    "certified_selected_target": "1/40",
+    "spectral_radius": "9/10",
+    "perturbation_radius": "1/40",
+    "feature_error_radius": "1/100",
+    "robust_successor_infinity_norm_bound": "247/500",
+    "global_residual_polynomials": [
+      [
+        {
+          "powers": [
+            0,
+            0
+          ],
+          "coefficient": "1/20"
+        },
+        {
+          "powers": [
+            0,
+            1
+          ],
+          "coefficient": "-1/40"
+        },
+        {
+          "powers": [
+            0,
+            3
+          ],
+          "coefficient": "1/40"
+        },
+        {
+          "powers": [
+            2,
+            1
+          ],
+          "coefficient": "1/40"
+        }
+      ],
+      [
+        {
+          "powers": [
+            0,
+            0
+          ],
+          "coefficient": "1/20"
+        },
+        {
+          "powers": [
+            1,
+            0
+          ],
+          "coefficient": "1/40"
+        },
+        {
+          "powers": [
+            1,
+            2
+          ],
+          "coefficient": "-1/40"
+        },
+        {
+          "powers": [
+            3,
+            0
+          ],
+          "coefficient": "-1/40"
+        }
+      ],
+      [
+        {
+          "powers": [
+            0,
+            0
+          ],
+          "coefficient": "1/20"
+        },
+        {
+          "powers": [
+            0,
+            1
+          ],
+          "coefficient": "1/40"
+        },
+        {
+          "powers": [
+            0,
+            3
+          ],
+          "coefficient": "-1/40"
+        },
+        {
+          "powers": [
+            2,
+            1
+          ],
+          "coefficient": "-1/40"
+        }
+      ],
+      [
+        {
+          "powers": [
+            0,
+            0
+          ],
+          "coefficient": "1/20"
+        },
+        {
+          "powers": [
+            1,
+            0
+          ],
+          "coefficient": "-1/40"
+        },
+        {
+          "powers": [
+            1,
+            2
+          ],
+          "coefficient": "1/40"
+        },
+        {
+          "powers": [
+            3,
+            0
+          ],
+          "coefficient": "1/40"
+        }
+      ]
+    ],
+    "continuum_proof": "exact coefficients plus nonnegative disk-factor identity; no grid",
+    "scalar_affine_impossibility": "analytic x_*=R^T*a/||a|| proof for every lambda>=0",
+    "scalar_quadratic_alternative": {
+      "degree": 2,
+      "components": 1,
+      "multiplier": "81/100",
+      "initial_margin": "3/16",
+      "unsafe_anchor_margin": "5/16",
+      "global_propagation_margin": "19/400"
+    },
+    "minimum_degree_scope": {
+      "scalar_constant_comparison": 2,
+      "finite_fixed_anchor_vector": 1,
+      "proof": "affine impossibility, explicit quadratic/vector upper bounds, no constant separator",
+      "minimum_vector_component_count": "not established; 2 <= m_min <= 4"
+    }
+  },
   "moment_obstruction": {
     "excluded_degree_bounds": [
       2,

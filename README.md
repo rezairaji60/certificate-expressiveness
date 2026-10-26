@@ -2,7 +2,7 @@
 
 Research drafts prepared for Reza Iraji and Majid Zamani.
 Repository: [rezairaji60/certificate-expressiveness](https://github.com/rezairaji60/certificate-expressiveness) (public).
-Latest converse revision: October 21, 2026, incorporating Majid’s detailed comments.
+Latest converse revision: October 25, 2026, addressing Majid’s October 23 remaining points.
 
 Theory and reproducible computations for the expressiveness, structural conservatism, and polynomial degree requirements of dynamical-system verification certificates.
 
@@ -16,11 +16,11 @@ At a prescribed total degree bound, robust separation of the convexified monomia
 
 This class forces uniform eventual unsafe avoidance from the entire verification domain. Onto maps and unsafe periodic points exclude it at every degree and component count. The original quartic recovery remains valid as an ordinary certificate with ρ(A) = 1; this converse does not explain that recovery.
 
-The constructive result gives explicit component bounds from a certified convex invariant body and a feasible finite row LP with separate source and successor feature-error budgets. With exact projections or certified projection/support gaps, a classical Dudley construction improves the geometric rate to O_r((R/epsilon)^((r-1)/2)); the worked example's a priori bound drops from 1,537 to 112. This geometric rate is attributed to prior work. A nonlinear example uses 12 quadratic components, 161 exact cover nodes, and certified margins 23/80 (initial), 1/10 (unsafe anchor), and 1/100 (global propagation). Exact replay validates the finite LP and rational geometry; the continuum conclusion uses the proved cover and derivative bounds. Twelve is not claimed minimal. An independent exact Bernstein polynomial proof establishes the sharper global margin 73/2500 for this fixed certificate, with equality at component 1 and x=1. The finite-cover LP still certifies its conservative target 1/100.
+The constructive result gives explicit component bounds from a certified convex invariant body and a feasible finite row LP with separate source and successor feature-error budgets. With exact projections or certified projection/support gaps, a classical Dudley construction improves the geometric rate to O_r((R/epsilon)^((r-1)/2)); the worked example's a priori bound drops from 1,537 to 112. This geometric rate is attributed to prior work. A scalar nonlinear example uses 12 quadratic components, 161 exact cover nodes, and certified margins 23/80 (initial), 1/10 (unsafe anchor), and 1/100 (global propagation). Exact replay validates the finite LP and rational geometry; the continuum conclusion uses the proved cover and derivative bounds. Majid's scalar baseline b=x-3/5 with A=1/2 already works at degree one, with initial/unsafe/propagation margins 7/20, 1/10, 1/20. Thus twelve functions validate supplied-body extraction but confer no advantage over a scalar certificate in this example. An independent exact Bernstein polynomial proof establishes the sharper global margin 73/2500 for this fixed certificate, with equality at component 1 and x=1. The finite-cover LP still certifies its conservative target 1/100.
 
-The rotation still proves that one affine component is impossible while four succeed; the moment witness still excludes every finite quadratic or cubic fixed-anchor VBC. Physical robust safety alone does not imply the feature-space hypothesis.
+A new perturbation proposition proves that one affine component fails while four succeed for every continuous map within distance delta<1/20 of the contracting quarter-turn (9/10)Rx on the unit disk. The explicit cubic family f_theta=(9/10-theta*(1-||x||^2))Rx, 0<theta<=1/40, has minimum scalar forward constant-comparison degree two and minimum finite-vector degree one. The four affine components have initial/unsafe margins 1/4 and propagation margin 1/40; A=(9/10)Pi. Full convexified-transition robustness with independent source/successor radius 1/100 is certified by the bound 247/500<1/2. A scalar quadratic works with A=81/100 and propagation margin 19/400. No minimum vector component count is asserted. The moment witness still excludes every finite quadratic or cubic fixed-anchor VBC. Physical robust safety alone does not imply the feature-space hypothesis.
 
-See [scope and reproduction](docs/CONVERSE_SCOPE.md) and [the revision audit](docs/REVISION_CHECKS.md). Classical multiplier, approximation-within-margin, and finite LP mechanisms are attributed explicitly; novelty of the combined theorem remains to be established.
+See [the consolidated manuscript outline](docs/MANUSCRIPT_OUTLINE.md), [the October 23 response](docs/REMAINING_COMMENTS.md), [scope and reproduction](docs/CONVERSE_SCOPE.md) and [the revision audit](docs/REVISION_CHECKS.md). Theorem-specific comparisons include HST Theorem 3.10, classical Dudley geometry, Berger–Sankaranarayanan Sections 6–7 and their discrete-time discussion in Section 9, and the HSCC 2024 polynomial-cone/positive-system synthesis framework. Classical multiplier, approximation-within-margin, and finite LP mechanisms are attributed explicitly; novelty of the combined theorem remains to be established.
 
 ## Current paper scope
 
@@ -42,13 +42,14 @@ The IBC witness uses a **single frame**, so it is also an ordinary scalar sign-i
 
 - `paper/note.pdf`: technical note, six pages of main text plus references.
 - `paper/note.tex`: editable pdfLaTeX source, including all proofs and references.
-- `paper/converse.pdf`: revised converse and constructive note, October 21, 2026.
+- `paper/converse.pdf`: revised converse and conditional extraction note, October 25, 2026.
 - `paper/converse.tex`: self-contained Overleaf source for the converse note.
 - `src/exact_verify.py`: dependency-free rational evidence replay and polynomial checks.
-- `src/exact_verify_converse.py`: exact affine comparison, robustness-bound, and moment-witness replay for the converse examples.
+- `src/exact_verify_converse.py`: exact scalar baseline, cubic nonlinear recovery, affine comparison, robustness-bound, and moment-witness replay for the converse examples.
 - `src/constructive_converse.py`: dependency-free exact replay of the nonlinear finite construction; optional SciPy `--discover` proposes a matrix and then exactly verifies it.
 - `src/search_witness.py`: finite-support LP discovery with exact rational reconstruction.
 - `src/plot_geometry.py`: illustrative figure generation; not proof evidence.
+- `tests/test_converse_examples.py`: exact scalar baseline and nonlinear same-degree recovery checks, including rejection of a wrong rotation coupling and invalid margins/error budgets.
 - `tests/test_evidence.py`: exact replay and invalid-witness rejection checks.
 - `tests/test_constructive.py`: exact continuum-certificate replay, an independent Bernstein proof with endpoint sharpness, and rejection of corrupted matrices, excessive margins, or understated feature-cover errors.
 - `evidence/exact_report.json`: rational weights, moments, margins, and Bernstein coefficients.
@@ -71,7 +72,7 @@ python src/constructive_converse.py
 python -m unittest discover -s tests -v
 ```
 
-Expected statuses are `EXACT_EVIDENCE_VERIFIED`, `EXACT_FINITE_EVIDENCE_VERIFIED`, and `EXACT_CONSTRUCTIVE_EVIDENCE_VERIFIED`. All 13 tests should pass.
+Expected statuses are `EXACT_EVIDENCE_VERIFIED`, `EXACT_FINITE_EVIDENCE_VERIFIED`, and `EXACT_CONSTRUCTIVE_EVIDENCE_VERIFIED`. All 20 tests should pass.
 GitHub Actions runs all three replays and all tests, then checks that their JSON reports match the committed files.
 Do not run with `python -O`, which disables assertions; the verifier rejects that mode.
 

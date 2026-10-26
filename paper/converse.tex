@@ -1,4 +1,4 @@
-% Compile with pdfLaTeX. Revised after Majid Zamani's October 12 comments.
+% Compile with pdfLaTeX. Revised after Majid Zamani's October 23 remaining comments.
 % All degree bounds mean total degree at most the prescribed d.
 \documentclass[10pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
@@ -30,14 +30,14 @@
 \setlength{\parskip}{3pt}
 \setlist[enumerate]{leftmargin=*,itemsep=2pt,topsep=3pt}
 \setlist[itemize]{leftmargin=*,itemsep=2pt,topsep=3pt}
-\title{Schur-Stable Fixed-Anchor Certificates at Prescribed Degree:\\A Robust Converse and a Certified Finite Construction}
-\author{Reza Iraji\\{\small Technical Note 2, revised for discussion}}
-\date{October 21, 2026}
+\title{Schur-Stable Fixed-Anchor Certificates at Prescribed Degree:\\A Robust Converse and Conditional Finite Extraction}
+\author{Reza Iraji\\{\small Technical Note 3, revised after the October 23 comments}}
+\date{October 25, 2026}
 \begin{document}
 \maketitle
 \vspace{-1em}
 \begin{abstract}
-At a prescribed polynomial degree, robust separation of the convexified monomial dynamics is equivalent to a finite forward fixed-anchor vector barrier certificate with a constant nonnegative Schur-stable comparison matrix. This is exactly the class that can be shifted to have a uniform strict global propagation margin. It forces uniform eventual avoidance of the unsafe set from the entire verification domain, and therefore excludes onto maps and unsafe periodic orbits. A constructive strengthening gives an explicit component bound from a certified convex body, together with a finite linear program that accounts for source and successor approximation errors. A nonlinear worked certificate is replayed with exact rational arithmetic. The original same-degree recovery and moment obstruction are retained with their precise scopes; physical robust safety alone does not imply the feature-space hypothesis.
+At a prescribed polynomial degree, robust separation of the convexified monomial dynamics is equivalent to a finite forward fixed-anchor vector barrier certificate with a constant nonnegative Schur-stable comparison matrix. This is exactly the class that can be shifted to have a uniform strict global propagation margin. It forces uniform eventual avoidance of the unsafe set from the entire verification domain, and therefore excludes onto maps and unsafe periodic orbits. Conditional extraction from a supplied, certified convex body gives an explicit component bound, together with a finite linear program that accounts for source and successor approximation errors. A nonlinear worked certificate is replayed with exact rational arithmetic and compared with its simpler scalar baseline. A separate perturbation-stable nonlinear family has minimum scalar comparison degree two and minimum finite-vector degree one. The moment obstruction and exact implication-versus-comparison degree separation are retained with their precise scopes; physical robust safety alone does not imply the feature-space hypothesis.
 \end{abstract}
 
 \section{Setting and the convexified dynamics}
@@ -400,13 +400,13 @@ Thus $\dist(z,C)\leq\ell^2/(2R)+6(\alpha+\sigma)\leq\varepsilon/2$ and the same 
 \section{Recovering the matrix from finite information}\label{sec:lp}
 Assume also that $Z\subseteq z_c+R_Z\ball$ is certified. Put
 \[
- D=R_Z+R+\alpha,\qquad \Lambda=D/\varepsilon.
+ M_B=R_Z+R+\alpha,\qquad \Lambda=M_B/\varepsilon.
 \]
-For the facets just constructed, the row multipliers with nominal margin $\varepsilon$ can be chosen to have row sums at most $\Lambda$. In fact, at any initial graph pair $(s_*,t_*)$ we have $\beta_j(s_*)\leq-\varepsilon$ and $\beta_i(t_*)\geq-D$. Hence every such row satisfies
+For the facets just constructed, the row multipliers with nominal margin $\varepsilon$ can be chosen to have row sums at most $\Lambda$. In fact, at any initial graph pair $(s_*,t_*)$ we have $\beta_j(s_*)\leq-\varepsilon$ and $\beta_i(t_*)\geq-M_B$. Hence every such row satisfies
 \[
- -D+\varepsilon\sum_j A_{ij}
+ -M_B+\varepsilon\sum_j A_{ij}
  \leq\beta_i(t_*)-\sum_j A_{ij}\beta_j(s_*)\leq-\varepsilon,
- \qquad \sum_jA_{ij}\leq(D-\varepsilon)/\varepsilon<\Lambda.
+ \qquad \sum_jA_{ij}\leq(M_B-\varepsilon)/\varepsilon<\Lambda.
 \]
 A smaller row cap is permitted if a separate bound proves that nominal dual rows with margin $\varepsilon$ satisfy it.
 
@@ -452,13 +452,25 @@ One explicit admissible representation is compact semialgebraic $X,X_0,X_u$ and 
 \]
 suffices. The zero-denominator case needs only exact constant feature pairs. Algebraic LPs may be solved with exact algebraic arithmetic; rational data allow rational LPs. These statements give finite termination with the stated oracles, not efficiency or a general compact-continuous algorithm. In the worked example all body and cover conditions have direct analytic certificates and all LP checks are rational.
 
-\section{A nonlinear positive example with full feature errors}\label{sec:nonlinear}
+\section{Nonlinear certificate extraction and its scalar baseline}\label{sec:nonlinear}
 Take
 \[
  X=[-1,1],\quad f(x)=\tfrac12x+\tfrac14x^2,\quad
  X_0=[-\tfrac14,\tfrac14],\quad X_u=[\tfrac7{10},\tfrac45],\quad d=2.
 \]
 Since $f'(x)=(1+x)/2\in[0,1]$, $f(X)=[-1/4,3/4]\subseteq X$.
+\textbf{Scalar baseline (pointed out by Majid Zamani).}
+A single affine function already certifies this system:
+\[
+ b(x)=x-\tfrac35,\qquad A_{\rm sc}=[\tfrac12],\qquad
+ b(f(x))-\tfrac12 b(x)=\tfrac14x^2-\tfrac3{10}\leq-\tfrac1{20}.
+\]
+Its initial and unsafe margins are respectively $7/20$ and $1/10$.
+It belongs to the degree-at-most-two class and even has degree one.
+Consequently the twelve-function construction below validates conditional extraction from a supplied certified body, but gives no advantage in function count, degree, or propagation margin over this scalar certificate. Its largest uniform propagation margin $73/2500$ for the fixed twelve-function pair is smaller than the scalar margin $1/20$. Section~\ref{sec:adding} supplies a separate nonlinear example with a proved benefit from adding functions.
+
+\textbf{Supplied body and certified extraction data.}
+
 Use $\phi_2(x)=(x,x^2)$ and $z_c=0$. For \emph{every} pair $(s,t)\in\mathcal F_2$,
 \[
  t_1=\tfrac12s_1+\tfrac14s_2,\quad
@@ -521,7 +533,7 @@ nonzero. The finite constraints \eqref{eq:lp} hold exactly at all 161 nodes. The
  \eta\geq\tfrac1{100},\qquad
  \rho(A)\leq\|A\|_\infty=\tfrac{58}{125}<1.
 \]
-This example verifies an end-to-end finite construction. It does not claim that twelve components or degree two are necessary.
+This example verifies finite certificate extraction from the supplied certified body and cover. The scalar baseline above establishes that multiple components and degree two are unnecessary for safety of this particular system.
 
 \textbf{Independent exact continuum check.}
 For the same fixed $B,A$, expand the twelve polynomials
@@ -532,50 +544,103 @@ $r_i(x)=(AB(x))_i-B_i(f(x))$ in the degree-four Bernstein basis on $[-1,1]$:
 \]
 Exact rational conversion gives $\min_{i,k}c_{ik}=73/2500$. The basis functions are nonnegative and sum to one, so $r_i(x)\geq73/2500$ on the entire interval, independently of the cover/Lipschitz argument. Moreover $r_1(1)=73/2500$; this is the exact largest uniform global propagation margin for this \emph{fixed} certificate pair. It is not an optimum over other functions or matrices. The LP guarantee remains the conservative $1/100$ after charging the feature-cover errors. The replay records all sixty Bernstein coefficients and checks both proofs.
 
-\section{Adding functions at the same degree succeeds}
-Consider a contracting quarter-turn:
+\section{Nonlinear recovery by adding functions at fixed degree}\label{sec:adding}
+We strengthen the original contracting-rotation example to a uniform neighborhood of nonlinear maps. Write
 \[
  X=\{x\in\R^2:\|x\|_2\leq1\},\quad
- f(x)=qRx,\quad q=\tfrac9{10},\quad
- R=\begin{pmatrix}0&-1\\1&0\end{pmatrix},
+ X_0=\{x:\|x\|_2\leq\tfrac14\},\quad
+ X_u=\{(\tfrac34,0)\},\quad
+ R=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\quad q=\tfrac9{10}.
 \]
+\begin{proposition}[A perturbation-stable benefit from more affine functions]\label{prop:nonlinear}
+Let $f:X\to\R^2$ be continuous and satisfy
 \[
- X_0=\{x:\|x\|_2\leq\tfrac14\},\qquad
- X_u=\{(\tfrac34,0)\},\qquad d=1.
+ f(x)=qRx+e(x),\qquad \sup_{x\in X}\|e(x)\|_2\leq\delta,\qquad 0\leq\delta<\tfrac1{20}.
 \]
-The system maps $X$ into itself, and initial trajectories contract.
+Then $f(X)\subseteq X$. At prescribed degree $d=1$, no scalar ordinary comparison certificate exists for any multiplier $\lambda\geq0$, whereas four affine components give a strict fixed-anchor VBC. The latter conclusion holds on the full convexified graph.
+\end{proposition}
+\begin{proof}
+First, $\|f(x)\|_2\leq q+\delta<1$ on $X$.
+Suppose a scalar affine certificate is $b(x)=a^\top x-c$.
+Strict negativity at $0\in X_0$ gives $c>0$, and the unsafe condition implies
+\[
+ c<\tfrac34a_1\leq\tfrac34\|a\|_2,\qquad a\neq0.
+\]
+For $x_*=R^\top a/\|a\|_2\in X$, skew symmetry gives $a^\top x_*=0$, and hence
+\[
+ b(x_*)=-c<0,\qquad
+ b(f(x_*))\geq(q-\delta)\|a\|_2-c>0,
+\]
+because $q-\delta>17/20>3/4$. This contradicts
+$b\circ f\leq\lambda b$ for every $\lambda\geq0$.
 
-\textbf{One affine function is impossible.}
-Suppose $B(x)=a^\top x-c$ is a scalar VBC with multiplier $\lambda\geq0$. Strict initial separation at $0$ gives $c>0$, while the unsafe anchor gives
+For the four-component certificate put $r_0=1/2$ and
 \[
- c<\tfrac34a_1\leq\tfrac34\|a\|_2<q\|a\|_2,\qquad a\neq0.
+ G=\begin{pmatrix}1&0\\0&1\\-1&0\\0&-1\end{pmatrix},\quad
+ \Pi=\begin{pmatrix}0&0&0&1\\1&0&0&0\\0&1&0&0\\0&0&1&0\end{pmatrix},
+ \qquad B(x)=Gx-r_0\one,\quad A=q\Pi.
 \]
-At $x_*=R^\top a/\|a\|_2\in X$, skew symmetry gives $a^\top x_*=0$. Consequently
+Since $GR=\Pi G$, direct substitution yields
 \[
- B(x_*)=-c<0,\qquad B(f(x_*))=q\|a\|_2-c>0,
+ B(f(x))-AB(x)=Ge(x)-(1-q)r_0\one
+ \leq-\bigl(\tfrac1{20}-\delta\bigr)\one.
 \]
-contradicting $B(f(x_*))\leq\lambda B(x_*)$.
+Every component is at most $-1/4$ on $X_0$, $B_1(3/4,0)=1/4$,
+and $\rho(A)=q<1$. Affinity in $(s,t)$ extends the comparison from the graph to its full convex hull.
+\end{proof}
 
-\textbf{Four affine functions succeed.}
-Take $r=1/2$ and
+\textbf{An explicit cubic family.}
+For every $0<\theta\leq1/40$ take
+\begin{equation}\label{eq:cubic-family}
+ f_\theta(x)=\left[\tfrac9{10}-\theta(1-\|x\|_2^2)\right]Rx.
+\end{equation}
+Its degree is three, while the prescribed certificate degree remains one.
+Here $e(x)=-\theta(1-\|x\|_2^2)Rx$ has norm at most $\theta$ on $X$,
+so Proposition~\ref{prop:nonlinear} applies uniformly with $\delta=1/40$.
+The same four affine functions and matrix certify every member of this family with
 \[
- B(x)=
- \begin{pmatrix}x_1-r\\x_2-r\\-x_1-r\\-x_2-r\end{pmatrix},\qquad
- A=q\begin{pmatrix}0&0&0&1\\1&0&0&0\\0&1&0&0\\0&0&1&0\end{pmatrix}.
+ \delta_0=\delta_u=\tfrac14,\qquad \eta=\tfrac1{40},\qquad \rho(A)=\tfrac9{10}.
 \]
-Direct substitution gives the global identity
-\[
- B(f(x))=AB(x)-\tfrac1{20}\one,\qquad \rho(A)=9/10.
-\]
-All components are at most $-1/4$ on $X_0$, and $B_1(3/4,0)=1/4$. The associated invariant is the square $[-1/2,1/2]^2$. This proves a one-versus-four recovery at the same degree, without claiming that four is the minimum possible number.
+This proves an actual nonlinear same-degree recovery. Four is an upper bound, not a proved minimum component count. The uniform perturbation proposition also shows that the recovery does not rely on one isolated polynomial identity.
 
-The robust hypothesis also has a direct check. Since $\phi_1(x)=x$ and $f$ is linear, $\mathcal F_1$ is its graph over the unit disk. Set $C=[-r,r]^2$ and $\varepsilon=1/100$. Then $I_1+\varepsilon\ball\subseteq C$. For a perturbed source $y=s+e\in C$ and successor $qRs+w$, with $\|e\|_2,\|w\|_2\leq\varepsilon$,
+\textbf{Increasing degree is an alternative.}
+For the family \eqref{eq:cubic-family}, the scalar quadratic
 \[
- \|qRs+w\|_\infty
- \leq qr+(q+1)\varepsilon
- =\tfrac{469}{1000}<\tfrac12.
+ b_2(x)=\|x\|_2^2-\tfrac14,\qquad A_2=[\tfrac{81}{100}]
 \]
-Thus $T_\varepsilon(C)\subseteq C$, and $C$ excludes $J_1$. Corollary~\ref{cor:body} applies. This calculation includes every convexified transition pair and every subsequent convex combination.
+satisfies
+\[
+ b_2(f_\theta(x))-\tfrac{81}{100}b_2(x)
+ =\left(\left[\tfrac9{10}-\theta(1-\|x\|_2^2)\right]^2-\tfrac{81}{100}\right)
+       \|x\|_2^2-\tfrac{19}{400}
+ \leq-\tfrac{19}{400}.
+\]
+Its initial and unsafe margins are $3/16$ and $5/16$. Thus the minimum
+scalar forward constant-comparison degree is exactly two, while the minimum degree
+allowing a finite fixed-anchor VBC is exactly one: degree zero cannot separate
+nonempty initial and unsafe sets. At degree one one must add functions;
+increasing to degree two permits one function.
+
+\textbf{The chosen-body hypothesis, including mixtures and both errors.}
+For the cubic family use the uniform bound $\delta=1/40$. At $d=1$, a pair $(s,t)\in\mathcal F_1$ has
+\[
+ t=qRs+\bar e,\qquad\|\bar e\|_2\leq\delta,
+\]
+by averaging $e(x)$; it need not satisfy $t=f(s)$.
+Set $C=[-1/2,1/2]^2$ and $\varepsilon=1/100$.
+For every such pair, if $y=s+v\in C$ and
+$\|v\|_2,\|w\|_2\leq\varepsilon$, then
+\[
+ \|t+w\|_\infty
+ \leq qr_0+\delta+(q+1)\varepsilon
+ \leq\tfrac{247}{500}<\tfrac12
+ \qquad(\delta=1/40).
+\]
+Also $I_1+\varepsilon\ball\subseteq C$ and $C\cap J_1=\varnothing$.
+This proves $T_\varepsilon(C)\subseteq C$ for all convexified transition pairs
+and independent source/successor errors. Subsequent convex combinations remain in $C$.
+The original linear rotation is the limiting case $e=0$, with the sharper
+propagation margin $1/20$ and robust square bound $469/1000$.
 
 \section{An obstruction: adding same-degree functions cannot succeed}
 Reuse the nonlinear example from the earlier note:
@@ -653,43 +718,150 @@ This interval contains $X_0$ and avoids $X_u$, proving physical robust safety. I
 
 The original identity example gives the same ordinary-versus-strict distinction at degree one: $f(x)=x$ on $X=[-1,1]$, $X_0=[-1/2,0]$, $X_u=[1/2,1]$, and $B(x)=x-1/4$, $A=[1]$ satisfy ordinary separation and propagation. Every $\varepsilon>0$ allows successive feature increments of size at most $\varepsilon$ from $0$ to $1/2$, so $\mathcal K_\varepsilon$ reaches $J_1$.
 
-\section{Comparison with existing results}\label{sec:literature}
-\textbf{Horv\'ath--Song--Terlaky, Theorem 3.10.}
-For a prescribed convex sublevel set $\{g\leq0\}$, \cite{hst} assumes convex $g$, concave $g\circ f_d$, and strict feasibility, and characterizes invariance by a global scalar multiplier:
-\[
- g(f_d(x))\leq\lambda g(x)\quad(x\in\R^n),\qquad\lambda\geq0.
-\]
-If both functions are quadratic, the S-lemma removes the successor-concavity requirement; Remark 3.11 treats multiple inequalities. Lemma~\ref{lem:dual} uses the same classical convex-duality mechanism on a compact convex relation. The distinction to assess is construction of a finite family at the prescribed degree from robust convexified separation, together with its exact Schur-stable scope. It is not a new multiplier principle.
+\section{Theorem-specific comparison with existing results}\label{sec:literature}
+The comparison below separates inherited mechanisms from the precise claims
+to be assessed for novelty. A difference in assumptions is not by itself a priority claim.
 
-\textbf{Liu, Section IV and Theorem 30.}
-The discrete-time result in \cite{liu} assumes robust safety under additive state disturbances, separation of the closure of the disturbed reachable set from the unsafe set, local Lipschitz regularity, and compactness of that closure or global Lipschitz continuity. It yields a smooth robust barrier for a smaller disturbance radius. It does not prescribe polynomial degree or a constant nonnegative comparison matrix. Section~\ref{sec:physical} proves that its physical-robustness premise alone need not imply our feature-robustness premise; neither a stronger global margin nor a fixed degree follows merely from physical safety.
+\subsection{Theorem~\ref{th:main}: the existence equivalence}
+\textbf{Closest multiplier result: Horv\'ath--Song--Terlaky, Theorem 3.10 and Remark 3.11.}
+For a supplied convex function $g$ and its sublevel set $\{g\leq0\}$, \cite{hst} assumes
+strict feasibility and concavity of $g\circ f_d$, and characterizes its
+invariance by $g\circ f_d\leq\lambda g$ globally on $\R^n$, for
+$\lambda\geq0$. If both functions are quadratic, the S-lemma removes the
+successor-concavity assumption; Remark 3.11 extends the first statement
+to several convex inequalities.
+Our Lemma~\ref{lem:dual} is the same classical duality mechanism on a compact
+convex relation. Theorem~\ref{th:main} instead starts with no supplied
+polynomial family, assumes positive-radius separation after full graph and
+reachable-set convexification in a fixed feature space, and concludes existence
+of finitely many degree-bounded functions with a designated unsafe anchor and
+$\rho(A)<1$, together with the converse implication.
+No concavity of $B_i\circ f$ is required, but ordinary state-space invariance
+has been replaced by a stronger convexified-feature robustness condition.
+Thus the theorem is not an unconditional removal of their concavity assumptions.
 
-\textbf{Alessio--Lazar--Bemporad--Heemels, Theorem 4.}
-Theorem 4 in \cite{alessio} is a general set-inclusion result for perturbed nonlinear discrete-time dynamics: fitting an intermediate set within a contraction margin preserves an appropriate invariance/contraction property. The theorem itself is not restricted to ellipsoids. Ellipsoids and piecewise ellipsoids enter their subsequent finite polyhedral construction. Their uncertainty model already allows multiple successors. Consequently neither the approximation-within-margin mechanism nor set-valuedness is an independent novelty here.
+\textbf{Closest smooth safety converse: Liu, Section IV, Theorem 30.}
+The discrete-time result in \cite{liu} uses additive state-disturbance robust
+safety, separation of the disturbed reachable closure from the unsafe set,
+local Lipschitz regularity, and compactness of that closure or global
+Lipschitz continuity. It gives a smooth robust barrier at a smaller disturbance
+radius. Our hypothesis uses independent feature errors and convexified
+transition pairs; our conclusion prescribes the polynomial degree and a
+constant nonnegative Schur comparison. Section~\ref{sec:physical} proves
+that physical robustness alone need not satisfy this feature premise.
+Neither converse subsumes the other through a simple change in disturbance radius.
 
-\textbf{Finite polyhedral synthesis more broadly.}
-Berger--Sankaranarayanan~\cite{berger}, Sections 6--7, gives a terminating counterexample-guided LP procedure with a quantitative iteration bound for polyhedral Lyapunov functions of continuous-time piecewise linear systems. Thus finite LP synthesis and robustness-dependent complexity bounds also have close precedents. Our conditional construction concerns a compact nonlinear discrete-time graph, fixed polynomial features, unsafe-anchor separation, and a global comparison matrix. These differences specify a comparison to make; they do not by themselves establish a publication-level novelty claim.
+\textbf{Closest polynomial-cone/positive-system result: Berger--Ghanbarpour--Sankaranarayanan, HSCC 2024.}
+Theorem 3.5 of \cite{cone2024} proves invariance for polynomial ODEs from
+$L_f(g)+\lambda g\in\operatorname{cone}(K G^{\leq\ell})$, using positive
+systems. Definition 5.1 and Corollary 5.2 turn this sufficient condition into
+a refinement fixed-point criterion. It permits polynomial multipliers and
+products of generators, and already uses polynomial templates and multiple
+inequalities. Our constant-matrix coupling is more restricted. Our equivalence concerns
+robust convexified fixed-feature separation with an unsafe anchor and Schur scope.
+Neither polynomial features, positive comparison systems, nor cone refinement
+is claimed new here.
 
-\begin{center}
-\small
-\begin{tabular}{@{}p{0.22\linewidth}p{0.34\linewidth}p{0.37\linewidth}@{}}
-\toprule
-Issue & Earlier mechanisms & Result developed here\\
-\midrule
-Invariance comparison & Global multipliers from convex duality & Same tool, applied after full graph convexification\\
-Finite approximation & Fit within a dynamical margin & Same mechanism; explicit count for chosen feature body\\
-Converse scope & Smooth robust barriers or given invariant sets & Finite degree-bounded fixed-anchor VBC iff feature robustness, exactly $\rho(A)<1$\\
-Finite construction & Existing geometric and LP methods & Certified paired feature cover and feasible row LP, with two error budgets\\
-\bottomrule
-\end{tabular}
-\end{center}
+\subsection{Theorem~\ref{th:count} and Proposition~\ref{prop:projection}: conditional facets}
+\textbf{Closest geometry: Har-Peled--Jones, Theorem 1.4.}
+The classical Dudley result in \cite{harpeled} approximates a supplied bounded
+convex body by $O_r((R/\tau)^{(r-1)/2})$ supporting halfspaces within
+Hausdorff error $\tau$. Proposition~\ref{prop:projection} applies this mechanism
+with a prescribed unsafe separator, explicit support/projection-gap error
+budgets, and $\tau=\varepsilon/2$. The exponent is classical.
+Theorem~\ref{th:count} gives a coarser direct support-net alternative.
+The degree bound comes from composing affine facets with the fixed feature map,
+not from a new convex approximation theorem.
+
+\textbf{Closest dynamical approximation: Alessio--Lazar--Bemporad--Heemels, Theorem 4.}
+Theorem 4 in \cite{alessio} is a general intermediate-set inclusion result for
+perturbed nonlinear discrete-time dynamics: an approximation within a
+contraction margin preserves the corresponding invariance/contraction property.
+Ellipsoids enter its later finite construction, not the general theorem.
+Our input is a supplied certified feature body satisfying \eqref{eq:bodydata};
+the output additionally includes initial and fixed-anchor margins, a
+prescribed-degree family, and a global comparison matrix.
+The approximation-within-margin principle and multiple-successor uncertainty
+are inherited mechanisms, not independent contributions.
+
+\subsection{Theorem~\ref{th:lp}: conditional matrix extraction}
+\textbf{Closest finite LP synthesis: Berger--Sankaranarayanan, Sections 6--7 and 9.}
+Proposition 13 in \cite{berger} gives a convex candidate problem (an LP for
+polyhedral norms), and Proposition 15 gives verification LPs; Proposition 19 and Theorem 21 prove
+coverage-based progress and a packing termination bound.
+Section 9 explicitly discusses discrete-time piecewise-linear extensions,
+and future safety/invariant-polytope extensions.
+Thus changing continuous time to discrete time, using finite LPs, or deriving
+a packing bound is insufficient as a novelty claim.
+Theorem~\ref{th:lp} assumes a supplied certified body and selected facets,
+a row cap and exact paired feature cover. It guarantees feasibility and
+continuum validity of a fixed-anchor comparison matrix after charging both
+source and successor errors. It does not discover the body or adaptively
+discover a Lyapunov function.
+
+\textbf{Polynomial refinement is also prior art.}
+Algorithms 2--6 and Lemmas 5.4, 5.5, and 5.8 of \cite{cone2024} already address
+finite polynomial-cone refinement, robust projections, and widening for
+termination. Widening may return a trivial invariant.
+Our conditional extraction starts after a useful robust body is supplied and
+guarantees a strictly separating certificate under its stated data budgets.
+The projection in Dudley's feature-space geometry and their projection in
+polynomial-coefficient cone space solve different subproblems.
+This comparison establishes no direct implication to our fixed-feature/Schur
+equivalence; its publication-level priority remains to be assessed.
 
 \section{Assessment, remaining questions, and reproducibility}
-The Schur characterization, dynamical limitations, and physical-robustness counterexample formalize observations supplied in Majid Zamani's comments. The quantitative bounds, using classical support-net and Dudley projection geometry, and the certified finite row-LP construction are the additional steps developed in this revision.
+The Schur characterization, dynamical limitations, and physical-robustness counterexample formalize observations supplied in Majid Zamani's comments. The quantitative bounds use classical support-net and Dudley geometry; the row LP extracts a certificate from supplied, certified body and cover data. The October 23 response adds the scalar baseline, a perturbation-stable nonlinear recovery proposition, an exact scalar/vector degree tradeoff, and a consolidated manuscript outline.
 
-The revision proves the spectral characterization requested in the comments, makes its stronger dynamical limitations explicit, and adds constructive consequences: the bounds \eqref{eq:mcount} and \eqref{eq:projection-count}, and the finite feasible LP \eqref{eq:lp}. The nonlinear example verifies their prerequisites on the entire convexified relation and supplies rational continuum margins. The general theorems are mathematical proofs in this note; their formal machine verification is not claimed.
+The revision proves the spectral characterization requested in the comments, makes its stronger dynamical limitations explicit, and adds constructive consequences: the bounds \eqref{eq:mcount} and \eqref{eq:projection-count}, and the finite feasible LP \eqref{eq:lp}. The scalar nonlinear example validates conditional extraction from its supplied body; its affine baseline is simpler. Proposition~\ref{prop:nonlinear} separately proves a nonlinear same-degree function-count benefit, and \eqref{eq:cubic-family} gives an exact scalar/vector degree tradeoff. The general theorems are mathematical proofs in this note; their formal machine verification is not claimed.
 
-The ordinary boundary class $\rho(A)=1$ still lacks a general converse here; onto examples prevent recovering it by imposing strictness. Automatic discovery of the body $C$ and minimal component counts also remain open. The projection rate is classical, and publication-level novelty of the combined feature-space equivalence and certified extraction requires further comparison with the closest converse and invariant-approximation results.
+The ordinary boundary class $\rho(A)=1$ still lacks a general converse here; onto examples prevent recovering it by imposing strictness. As requested, solving that boundary case is not a prerequisite for drafting the consolidated paper. Automatic discovery of the body $C$ and minimal component counts also remain open. The projection rate is classical, and publication-level novelty of the combined feature-space equivalence and certified extraction requires further comparison with the closest converse and invariant-approximation results.
+
+\subsection*{Consolidated manuscript outline}
+Working title: \emph{Structural Conservatism of Discrete-Time Barrier Certificates:
+Moment Obstructions, a Schur-Stable Converse, and Exact Degree Separations}.
+The paper can now be drafted around the following sequence.
+\begin{enumerate}
+\item \textbf{Problem and certificate classes.}
+Fix degree, distinguish scalar/vector comparisons from implication-style
+IBCs, and state the fixed-anchor and propagation-direction restrictions.
+Separate ordinary $\rho(A)=1$ certificates from the Schur subclass.
+\item \textbf{Convexified comparisons and moment obstructions.}
+Present the fixed-family dual characterization, then the finite-support
+moment criterion excluding \emph{every finite component count} at degree $d$.
+Explain that a witness describes incompatible averages, not an unsafe trajectory.
+State its sufficient, rather than necessary, scope.
+\item \textbf{Schur-stable existence converse.}
+Prove Theorem~\ref{th:main}, treating both convexifications and independent
+feature errors. Derive uniform eventual avoidance and the onto/periodic
+obstructions. Keep this forward-only characterization separate from the
+earlier forward/backward moment obstruction.
+\item \textbf{Conditional finite extraction.}
+Starting from a supplied certified body $C$, give the attributed facet
+approximation, explicit margins/counts, and paired-cover row LP.
+Separate existence, conditional finite extraction, and discovery.
+\item \textbf{When more functions help.}
+Use Proposition~\ref{prop:nonlinear} and the cubic family: one affine function
+fails, four succeed, and one quadratic succeeds. Thus function count and
+degree provide distinct ways to remove this obstruction.
+\item \textbf{When no number of same-degree functions helps.}
+Use the exact nonlinear moment witness to exclude all degree-at-most-three
+fixed-anchor comparison VBCs, while a quadratic single-frame
+interpolation-inspired certificate and a quartic ordinary comparison work.
+The minima two and four concern \emph{different propagation classes}.
+The quartic matrix has $\rho(A)=1$ and lies outside the Schur converse.
+\item \textbf{Evidence, comparisons, and implications.}
+Include the twelve-function extraction example with its scalar baseline,
+exact rational replays, and theorem-specific prior-work comparisons.
+Conclude only the proved formulation-selection implications: try more functions
+where a construction permits it; a moment obstruction rules out that remedy
+and requires changing degree or certificate conditions within the stated classes.
+Do not infer a complete decision procedure from these sufficient tests.
+\end{enumerate}
+The four proof pillars are therefore the component-count-independent
+obstruction, the Schur-stable converse, conditional extraction, and exact
+degree separations. The neutral-class converse is a stated open direction,
+not a missing prerequisite for this manuscript plan.
 
 \textbf{Code and reproducibility.}
 All computational materials are in the public Certificate Expressiveness repository:
@@ -702,11 +874,11 @@ The Overleaf-ready source is \texttt{paper/converse.tex}; the exact nonlinear ma
 Run \texttt{python src/constructive\_converse.py} for a standard-library-only exact replay.
 Optional \texttt{-{}-discover} uses SciPy solely to propose a matrix, which is accepted only after rational verification.
 The existing \texttt{src/exact\_verify.py} and
-\texttt{src/exact\_verify\_converse.py} retain the original continuum, rotation, and moment checks. Tests reject corrupted comparison matrices and understated feature-cover errors as well as invalid moment witnesses.
+\texttt{src/exact\_verify\_converse.py} retain the original continuum, rotation, and moment checks. The latter also replays the scalar baseline, cubic-family identities, nonlinear four-function margins, and mixed-transition robustness bound. Tests reject corrupted comparison matrices and understated feature-cover errors as well as invalid moment witnesses.
 The finite cover's soundness rests on the stated analytic derivative bounds; finite node checks without those bounds would not certify the continuum. The nonlinear example additionally has an independent exact Bernstein proof and an endpoint witness for its fixed-certificate propagation margin.
 
 \clearpage
-\begin{thebibliography}{5}
+\begin{thebibliography}{6}
 \small\raggedright
 \bibitem{hst}
 Z. Horv\'ath, Y. Song, and T. Terlaky,
@@ -729,9 +901,15 @@ G. O. Berger and S. Sankaranarayanan,
 \emph{Counterexample-guided computation of polyhedral Lyapunov functions for piecewise linear systems},
 Automatica, vol. 155, article 111165, 2023.
 DOI: 10.1016/j.automatica.2023.111165.
+\bibitem{cone2024}
+G. O. Berger, M. Ghanbarpour, and S. Sankaranarayanan,
+\emph{Cone-Based Abstract Interpretation for Nonlinear Positive Invariant Synthesis},
+Proceedings of HSCC '24, pp. 1--16, 2024.
+DOI: 10.1145/3641513.3650127.
+\par\url{https://guberger.github.io/assets/papers/10.1145_3641513.3650127.pdf}.
 \bibitem{harpeled}
 S. Har-Peled and M. Jones,
-\emph{Proof of Dudley's Convex Approximation},
+\emph{A Proof of Dudley's Convex Approximation},
 arXiv:1912.01977v3, 2024. Theorem 1.4.
 \par\url{https://arxiv.org/abs/1912.01977v3}.
 \end{thebibliography}

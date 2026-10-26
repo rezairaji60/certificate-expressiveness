@@ -51,3 +51,20 @@ adds an independent Bernstein polynomial verification and an endpoint witness
 for the nonlinear certificate's exact fixed-pair margin 73/2500.
 These are constructive and verification improvements; no new approximation
 exponent or general neutral-class converse is claimed.
+
+## Consolidation after October 23 comments
+
+The October 25 revision supplies the requested scalar baseline, a separate
+nonlinear same-degree recovery, theorem-specific comparisons including
+HSCC 2024 and the discrete-time discussion in Berger–Sankaranarayanan
+Section 9, and a consolidated outline in MANUSCRIPT_OUTLINE.md.
+
+The new cubic family has minimum forward scalar comparison degree two
+and minimum degree admitting any finite fixed-anchor vector one.
+This is distinct from the original minimum implication/comparison degrees
+two and four. Its affine vector needs at most four components; no optimal
+component count is asserted.
+
+The extraction procedure starts with a supplied, certified body C.
+Neither automatic body discovery nor a general rho(A)=1 converse is claimed.
+As Majid explicitly requested, drafting need not await the neutral-class converse.

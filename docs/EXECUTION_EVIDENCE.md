@@ -106,3 +106,34 @@ The Bernstein argument is independent of the cover nodes and derivative
 bounds. The sharp 73/2500 margin concerns only the fixed committed functions
 and matrix, not an optimization over all certificates. The general theorem
 proofs and publication novelty still require independent mathematical review.
+
+## Remaining-comments revision — October 25, 2026
+
+This revision addresses Majid's new, one-page October 23 feedback.
+It adds the scalar baseline, a separate nonlinear separation, theorem-specific
+comparisons, and a consolidated manuscript outline.
+
+| Check | Observed result |
+| --- | --- |
+| Original exact degree-separation replay | EXACT_EVIDENCE_VERIFIED |
+| Converse replay, including new baseline and cubic-family identities | EXACT_FINITE_EVIDENCE_VERIFIED |
+| Supplied-body extraction replay and independent Bernstein proof | EXACT_CONSTRUCTIVE_EVIDENCE_VERIFIED |
+| All three deterministic reports | Recomputed byte-for-byte identically |
+| Acceptance and rejection tests | All 20 passed |
+| Scalar baseline | Exact endpoint propagation margin 1/20; initial/unsafe 7/20 and 1/10 |
+| New nonlinear vector certificate | Four affine components; uniform family propagation margin 1/40 |
+| New nonlinear scalar alternative | One quadratic; multiplier 81/100; propagation margin 19/400 |
+| Nonlinear graph mixtures and both independent feature errors | Robust square bound 247/500 < 1/2 at error radius 1/100 |
+| Polynomial proof | Exact multivariate coefficient identities and nonnegative factors on the disk, without a grid |
+| Invalid new evidence | Wrong rotation coupling, excessive margin, and uncertified feature-error radius rejected |
+| Final revised PDF | 15 pages; pdfLaTeX/latexmk successful, no warnings or overfull/underfull boxes |
+| Visual inspection | All 15 pages inspected; final changed pages re-rendered and inspected |
+| Literature checks | Primary papers checked for the cited HST, Dudley, Automatica 2023, and HSCC 2024 theorem/algorithm statements |
+
+The universal scalar affine exclusion and exact minimum-degree conclusions
+are analytic proofs in the note. The finite replays check their explicit
+identities and numerical bounds, not a formal proof-assistant derivation.
+The new nonlinear example extends the contracting-rotation mechanism.
+Publication priority and revolutionary significance are not established.
+The extraction method takes a supplied, certified convex body C and its
+geometric/cover data; it does not discover C automatically.
