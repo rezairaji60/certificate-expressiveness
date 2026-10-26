@@ -137,3 +137,26 @@ The new nonlinear example extends the contracting-rotation mechanism.
 Publication priority and revolutionary significance are not established.
 The extraction method takes a supplied, certified convex body C and its
 geometric/cover data; it does not discover C automatically.
+
+
+## Complete IEEE journal manuscript — October 26, 2026
+
+The complete manuscript is paper/manuscript.tex, with its compiled PDF and a
+source-only Overleaf project. Code and data are pinned in the paper to evidence
+revision 7b2d025abdf9786f55819a36b10ffd8a5e343375.
+
+| Check | Observed result |
+| --- | --- |
+| Three exact replays | All expected status checks passed |
+| Evidence and rejection tests | All 20 passed |
+| Deterministic evidence | All three JSON reports reproduced byte-for-byte |
+| Code and data provenance | Source, tests, evidence, and geometry.pdf unchanged |
+| Journal build | Official unmodified IEEEtran v1.8b, pdfLaTeX/latexmk, 13 pages |
+| Build diagnostics | No unresolved references, LaTeX warnings, or overfull boxes; 11 benign underfull lines |
+| Visual review | All 13 rendered pages inspected |
+| Overleaf package | Clean extraction and successful build; PDF text matches on every page |
+| Research response | Completed definitions, proofs, related work, examples, comparison table, and conclusion; see MANUSCRIPT_CHECKS.md |
+
+The consolidated manuscript adds no new solver experiment. The exact
+replays validate finite evidence; the general theorems remain mathematical
+proofs for coauthor review. Publication priority is not established by these checks.

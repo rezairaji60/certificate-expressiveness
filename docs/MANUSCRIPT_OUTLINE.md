@@ -1,6 +1,8 @@
-# Consolidated manuscript outline
+# Archived manuscript outline
 
 Prepared October 25, 2026, in response to Majid's October 23 remaining points.
+
+Implemented as the complete [IEEE journal manuscript](../paper/manuscript.pdf) on October 26, 2026. This outline is historical; the manuscript, its source, and [current audit](MANUSCRIPT_CHECKS.md) are the current review materials.
 
 Working title: **Structural Conservatism of Discrete-Time Barrier Certificates:
 Moment Obstructions, a Schur-Stable Converse, and Exact Degree Separations**.

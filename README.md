@@ -2,13 +2,29 @@
 
 Research drafts prepared for Reza Iraji and Majid Zamani.
 Repository: [rezairaji60/certificate-expressiveness](https://github.com/rezairaji60/certificate-expressiveness) (public).
-Latest converse revision: October 25, 2026, addressing Majid’s October 23 remaining points.
+Latest complete journal manuscript: October 26, 2026, addressing Majid’s request for a consolidated TAC first draft.
 
 Theory and reproducible computations for the expressiveness, structural conservatism, and polynomial degree requirements of dynamical-system verification certificates.
 
-This repository contains the initial degree-separation note and the subsequent candidate converse requested by Majid. These are research drafts for review. The converse now includes a conditional finite construction from certified body and cover data; discovery of those data and publication-level novelty remain open.
+This repository contains a complete IEEE journal manuscript and its preceding technical notes. These are research drafts for coauthor review. The extraction result is conditional on supplied certified body and cover data; automatic discovery, the neutral-class converse, and optimal component counts remain open.
 
-## Latest note: Schur-stable fixed-anchor certificates
+## Complete IEEE journal manuscript
+
+[Read the 13-page manuscript](paper/manuscript.pdf), [download the Overleaf ZIP](paper/TAC_Manuscript_Overleaf.zip), or [open the LaTeX source](paper/manuscript.tex).
+Upload the ZIP as a new Overleaf project, select manuscript.tex as the main document, and use pdfLaTeX.
+The official, unmodified IEEEtran class and the published figure are included.
+See [build instructions](paper/OVERLEAF_README.md) and [the manuscript audit](docs/MANUSCRIPT_CHECKS.md).
+
+The manuscript consolidates the certificate definitions, self-contained fixed-family duality and moment proofs, the forward Schur-stable converse, conditional extraction, the two distinct exact degree separations, and reproducibility.
+It includes the general implication-IBC affine impossibility and analytic quartic recovery in both directions.
+The compact comparison table distinguishes the nonlinear degree-two/degree-four gap from the cubic scalar-degree-two/vector-degree-one gap.
+Related work separates the increment over the supplied VBC/IBC submission from classical multiplier duality, convex approximation, and invariant-set methods.
+
+All three exact replays and all 20 tests pass. The code and input data are pinned in the paper to evidence revision 7b2d025abdf9786f55819a36b10ffd8a5e343375; the consolidated manuscript is a subsequent documentation revision.
+General proofs are mathematical arguments, not proof-assistant formalizations. This is a complete first draft for coauthor review, with no claim of established publication priority or journal acceptance.
+
+## Preceding converse note (archived)
+
 
 [Read the revised converse PDF](paper/converse.pdf) or [open its self-contained Overleaf source](paper/converse.tex).
 
@@ -20,15 +36,15 @@ The constructive result gives explicit component bounds from a certified convex 
 
 A new perturbation proposition proves that one affine component fails while four succeed for every continuous map within distance delta<1/20 of the contracting quarter-turn (9/10)Rx on the unit disk. The explicit cubic family f_theta=(9/10-theta*(1-||x||^2))Rx, 0<theta<=1/40, has minimum scalar forward constant-comparison degree two and minimum finite-vector degree one. The four affine components have initial/unsafe margins 1/4 and propagation margin 1/40; A=(9/10)Pi. Full convexified-transition robustness with independent source/successor radius 1/100 is certified by the bound 247/500<1/2. A scalar quadratic works with A=81/100 and propagation margin 19/400. No minimum vector component count is asserted. The moment witness still excludes every finite quadratic or cubic fixed-anchor VBC. Physical robust safety alone does not imply the feature-space hypothesis.
 
-See [the consolidated manuscript outline](docs/MANUSCRIPT_OUTLINE.md), [the October 23 response](docs/REMAINING_COMMENTS.md), [scope and reproduction](docs/CONVERSE_SCOPE.md) and [the revision audit](docs/REVISION_CHECKS.md). Theorem-specific comparisons include HST Theorem 3.10, classical Dudley geometry, Berger–Sankaranarayanan Sections 6–7 and their discrete-time discussion in Section 9, and the HSCC 2024 polynomial-cone/positive-system synthesis framework. Classical multiplier, approximation-within-margin, and finite LP mechanisms are attributed explicitly; novelty of the combined theorem remains to be established.
+The former [manuscript outline](docs/MANUSCRIPT_OUTLINE.md) is retained as an archive. See [the October 23 response](docs/REMAINING_COMMENTS.md), [scope and reproduction](docs/CONVERSE_SCOPE.md) and [the revision audit](docs/REVISION_CHECKS.md). Theorem-specific comparisons include HST Theorem 3.10, classical Dudley geometry, Berger–Sankaranarayanan Sections 6–7 and their discrete-time discussion in Section 9, and the HSCC 2024 polynomial-cone/positive-system synthesis framework. Classical multiplier, approximation-within-margin, and finite LP mechanisms are attributed explicitly; novelty of the combined theorem remains to be established.
 
 ## Current paper scope
 
 The core study follows Majid's requested starting point: barrier certificates for autonomous deterministic discrete-time safety verification. It compares fixed-anchor constant-comparison VBCs with interpolation-inspired barrier certificates (IBCs) using implication-style propagation at prescribed polynomial degree. Closure certificates inform the related-work discussion and remain a possible later extension requiring separate definitions and proofs. See `docs/RESEARCH_SCOPE.md`.
 
-Working manuscript title: **Structural Conservatism of Discrete-Time Barrier Certificates: Characterization and Degree Separations**. The technical note retains its original title.
+Manuscript title: **Structural Conservatism of Discrete-Time Barrier Certificates: Moment Obstructions and Degree Separations**. The earlier technical notes retain their original titles.
 
-## Main proposed results
+## Main results and their scope
 
 1. For a **fixed** continuous vector B on a compact invariant verification domain, with one strictly negative feasible point, a constant entrywise nonnegative comparison matrix exists if and only if the convex hull of `(B(x), B(f(x)))` preserves the nonpositive orthant. A violating distribution needs at most m+2 atoms.
 2. Matching input and successor monomial moments to initial and unsafe distributions provides a sufficient obstruction to **every fixed-anchor VBC of prescribed degree**, regardless of the finite number of functions and the constant nonnegative comparison matrix. The proof covers forward and backward definitions.
@@ -40,6 +56,10 @@ The IBC witness uses a **single frame**, so it is also an ordinary scalar sign-i
 
 ## Contents
 
+- `paper/manuscript.pdf`: complete IEEE journal first draft, 13 pages, October 26, 2026.
+- `paper/manuscript.tex`: complete editable journal source with all proofs and references.
+- `paper/TAC_Manuscript_Overleaf.zip`: compile-checked Overleaf project with IEEEtran and the figure.
+- `docs/MANUSCRIPT_CHECKS.md`: response map and completed verification for the consolidated manuscript.
 - `paper/note.pdf`: technical note, six pages of main text plus references.
 - `paper/note.tex`: editable pdfLaTeX source, including all proofs and references.
 - `paper/converse.pdf`: revised converse and conditional extraction note, October 25, 2026.
@@ -85,9 +105,10 @@ python src/constructive_converse.py --discover
 python src/plot_geometry.py
 ```
 
-Compile the note from `paper/`:
+Compile from `paper/`:
 
 ```sh
+latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error note.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error converse.tex
 ```
