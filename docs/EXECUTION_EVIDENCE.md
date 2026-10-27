@@ -160,3 +160,18 @@ revision 7b2d025abdf9786f55819a36b10ffd8a5e343375.
 The consolidated manuscript adds no new solver experiment. The exact
 replays validate finite evidence; the general theorems remain mathematical
 proofs for coauthor review. Publication priority is not established by these checks.
+
+
+## Download reissue verification — October 27, 2026
+
+All three exact status checks and all 20 tests passed again. The deterministic
+JSON reports are unchanged. The complete manuscript was reread against the
+four requests in Majid's October 26 response. One incorrect internal section
+reference and one grammatical typo were corrected; no mathematical statement,
+verification code, or evidence changed.
+
+The revised 13-page PDF and Overleaf archive both compile successfully, with
+no unresolved references, LaTeX warnings, or overfull boxes and 11 benign
+underfull lines. A fresh extraction of the archive reproduces the manuscript's
+text on every page. The two affected pages were visually reinspected, and all
+other page renders match the preceding reviewed version byte-for-byte.

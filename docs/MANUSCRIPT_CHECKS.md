@@ -66,3 +66,25 @@ The targeted primary-source comparison does not establish exhaustive priority.
 Coauthor review should assess the final novelty and presentation for TAC,
 including the relation to the separately submitted VBC/IBC paper.
 No journal acceptance or revolutionary significance is claimed.
+
+
+## Download reissue and proofread — October 27, 2026
+
+The complete manuscript was checked again against Majid's October 26 request.
+The general definitions, fixed-family and moment proofs, Schur equivalence,
+conditional extraction, and both distinct degree separations were reread.
+An incorrect literal Section 3 reference in the parameter-family proof now
+uses the correct cross-reference to Section VII-A. A grammatical typo in
+the scope paragraph was corrected. No mathematical statement, code, or evidence changed.
+
+All three exact replays and all 20 tests passed again. All three generated
+JSON reports reproduced byte-for-byte. The source-only Overleaf ZIP was
+rebuilt, extracted into a fresh directory, and compiled successfully.
+All 13 pages of PDF text match the checked manuscript. The two affected
+pages were rendered and visually inspected; all other rendered pages are
+byte-identical to the preceding reviewed version. The build has no unresolved
+references, LaTeX warnings, or overfull boxes; 11 benign underfull lines remain.
+
+Fresh download copies are exact copies of the committed PDF, source, and
+Overleaf archive. The reproducibility code/data revision remains
+7b2d025abdf9786f55819a36b10ffd8a5e343375.
