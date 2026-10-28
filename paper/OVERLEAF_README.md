@@ -38,7 +38,7 @@ From that checkout:
 
 All three exact status checks and all 20 tests pass.
 The neutral spectral-radius-one converse, automatic body discovery, and optimal component counts remain open.
-The authorship order is retained from the supplied VBC/IBC submission for coauthor review.
+The authors of this project are Reza Iraji and Majid Zamani.
 
 ## Class and figure provenance
 

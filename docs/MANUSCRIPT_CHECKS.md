@@ -88,3 +88,20 @@ references, LaTeX warnings, or overfull boxes; 11 benign underfull lines remain.
 Fresh download copies are exact copies of the committed PDF, source, and
 Overleaf archive. The reproducibility code/data revision remains
 7b2d025abdf9786f55819a36b10ffd8a5e343375.
+
+
+## Project authorship synchronization — October 28, 2026
+
+The project owner confirmed that the current project's authors are Reza Iraji
+and Majid Zamani. The manuscript author field, PDF author metadata, source
+comment, Overleaf README, project README, and AUTHORS.md now use this list.
+The source ZIP was rebuilt and compiled in a clean directory; its 13-page PDF
+matches the checked manuscript. The title page was visually inspected, and
+all later rendered pages are unchanged. The content matches the supplied
+send-to-advisor PDF, whose author list was already correct.
+
+All current repository text files, manuscript and archived-note PDFs, PDF author
+metadata, and archive members were checked. Other author names occur only in
+bibliographic references or descriptions of earlier cited works. Those author
+lists belong to separate publications and retain their correct attribution.
+No theorem, example, verification code, test, or evidence report changed.

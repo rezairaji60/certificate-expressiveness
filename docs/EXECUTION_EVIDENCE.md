@@ -175,3 +175,15 @@ no unresolved references, LaTeX warnings, or overfull boxes and 11 benign
 underfull lines. A fresh extraction of the archive reproduces the manuscript's
 text on every page. The two affected pages were visually reinspected, and all
 other page renders match the preceding reviewed version byte-for-byte.
+
+
+## Project authorship check — October 28, 2026
+
+The canonical project author list is Reza Iraji and Majid Zamani. The source,
+visible title page, PDF Author field, Overleaf source package, and project
+README were synchronized. The rebuilt source-only ZIP compiles in a clean
+directory and reproduces all 13 pages of the checked manuscript. Page one was
+visually inspected; later page renders match the preceding reviewed version.
+Repository-wide text and PDF checks found other author names only in citations
+to earlier works, whose attribution remains accurate. The mathematical body,
+verification programs, tests, and exact evidence are unchanged.

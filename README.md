@@ -1,6 +1,7 @@
 # Certificate Expressiveness
 
 Research drafts prepared for Reza Iraji and Majid Zamani.
+Project authors: Reza Iraji and Majid Zamani. See [AUTHORS.md](AUTHORS.md).
 Repository: [rezairaji60/certificate-expressiveness](https://github.com/rezairaji60/certificate-expressiveness) (public).
 Latest complete journal manuscript: October 26, 2026, addressing Majid’s request for a consolidated TAC first draft.
 
